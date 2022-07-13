@@ -1,0 +1,910 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334D287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift */; };
+		E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334F287DE34C00FF14C2 /* ContentView.swift */; };
+		E17B3352287DE34F00FF14C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17B3351287DE34F00FF14C2 /* Assets.xcassets */; };
+		E17B3355287DE34F00FF14C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17B3354287DE34F00FF14C2 /* Preview Assets.xcassets */; };
+		E17B3357287DE34F00FF14C2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B3356287DE34F00FF14C2 /* Persistence.swift */; };
+		E17B335A287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E17B3358287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodeld */; };
+		E17B3364287DE35000FF14C2 /* WildTangz_CNFT_WidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B3363287DE35000FF14C2 /* WildTangz_CNFT_WidgetTests.swift */; };
+		E17B336E287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B336D287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITests.swift */; };
+		E17B3370287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B336F287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITestsLaunchTests.swift */; };
+		E17B3383287DE57500FF14C2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17B3382287DE57500FF14C2 /* WidgetKit.framework */; };
+		E17B3385287DE57500FF14C2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17B3384287DE57500FF14C2 /* SwiftUI.framework */; };
+		E17B3388287DE57500FF14C2 /* iOS_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B3387287DE57500FF14C2 /* iOS_Widget.swift */; };
+		E17B338B287DE57700FF14C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17B338A287DE57700FF14C2 /* Assets.xcassets */; };
+		E17B338D287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E17B3389287DE57500FF14C2 /* iOS_Widget.intentdefinition */; };
+		E17B338E287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E17B3389287DE57500FF14C2 /* iOS_Widget.intentdefinition */; };
+		E17B3391287DE57700FF14C2 /* iOS WidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E17B3380287DE57500FF14C2 /* iOS WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E19D0081287F44B70067CB8F /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D0080287F44B70067CB8F /* ColorExtension.swift */; };
+		E19D0082287F44FB0067CB8F /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19D0080287F44B70067CB8F /* ColorExtension.swift */; };
+		E1E505DC287F7FCC00796263 /* PoolPm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E505DB287F7FCC00796263 /* PoolPm.swift */; };
+		E1E505DD287F7FCC00796263 /* PoolPm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E505DB287F7FCC00796263 /* PoolPm.swift */; };
+		E1F37E19287FCB11005759F4 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = E1F37E18287FCB11005759F4 /* Toast */; };
+		E1F37E1C287FCB27005759F4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E1F37E1B287FCB27005759F4 /* SwiftyJSON */; };
+		E1F37E1E287FCB40005759F4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E1F37E1D287FCB40005759F4 /* SwiftyJSON */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E17B3360287DE35000FF14C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E17B3342287DE34C00FF14C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E17B3349287DE34C00FF14C2;
+			remoteInfo = "WildTangz CNFT Widget";
+		};
+		E17B336A287DE35000FF14C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E17B3342287DE34C00FF14C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E17B3349287DE34C00FF14C2;
+			remoteInfo = "WildTangz CNFT Widget";
+		};
+		E17B338F287DE57700FF14C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E17B3342287DE34C00FF14C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E17B337F287DE57500FF14C2;
+			remoteInfo = "iOS WidgetExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E17B3395287DE57700FF14C2 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E17B3391287DE57700FF14C2 /* iOS WidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E15014ED287EAD420076D8A6 /* WildTangz CNFT Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WildTangz CNFT Widget.entitlements"; sourceTree = "<group>"; };
+		E15014EE287EAD7A0076D8A6 /* iOS WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "iOS WidgetExtension.entitlements"; sourceTree = "<group>"; };
+		E17B334A287DE34C00FF14C2 /* WildTangz CNFT Widget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WildTangz CNFT Widget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E17B334D287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildTangz_CNFT_WidgetApp.swift; sourceTree = "<group>"; };
+		E17B334F287DE34C00FF14C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E17B3351287DE34F00FF14C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E17B3354287DE34F00FF14C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E17B3356287DE34F00FF14C2 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		E17B3359287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WildTangz_CNFT_Widget.xcdatamodel; sourceTree = "<group>"; };
+		E17B335F287DE35000FF14C2 /* WildTangz CNFT WidgetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WildTangz CNFT WidgetTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E17B3363287DE35000FF14C2 /* WildTangz_CNFT_WidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildTangz_CNFT_WidgetTests.swift; sourceTree = "<group>"; };
+		E17B3369287DE35000FF14C2 /* WildTangz CNFT WidgetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WildTangz CNFT WidgetUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E17B336D287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildTangz_CNFT_WidgetUITests.swift; sourceTree = "<group>"; };
+		E17B336F287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildTangz_CNFT_WidgetUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E17B3380287DE57500FF14C2 /* iOS WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "iOS WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E17B3382287DE57500FF14C2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E17B3384287DE57500FF14C2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E17B3387287DE57500FF14C2 /* iOS_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_Widget.swift; sourceTree = "<group>"; };
+		E17B3389287DE57500FF14C2 /* iOS_Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = iOS_Widget.intentdefinition; sourceTree = "<group>"; };
+		E17B338A287DE57700FF14C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E17B338C287DE57700FF14C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E19D0080287F44B70067CB8F /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		E1E505DB287F7FCC00796263 /* PoolPm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolPm.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E17B3347287DE34C00FF14C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1F37E1E287FCB40005759F4 /* SwiftyJSON in Frameworks */,
+				E1F37E19287FCB11005759F4 /* Toast in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B335C287DE35000FF14C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B3366287DE35000FF14C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B337D287DE57500FF14C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1F37E1C287FCB27005759F4 /* SwiftyJSON in Frameworks */,
+				E17B3385287DE57500FF14C2 /* SwiftUI.framework in Frameworks */,
+				E17B3383287DE57500FF14C2 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E17B3341287DE34C00FF14C2 = {
+			isa = PBXGroup;
+			children = (
+				E15014EE287EAD7A0076D8A6 /* iOS WidgetExtension.entitlements */,
+				E17B334C287DE34C00FF14C2 /* WildTangz CNFT Widget */,
+				E17B3362287DE35000FF14C2 /* WildTangz CNFT WidgetTests */,
+				E17B336C287DE35000FF14C2 /* WildTangz CNFT WidgetUITests */,
+				E17B3386287DE57500FF14C2 /* iOS Widget */,
+				E17B3381287DE57500FF14C2 /* Frameworks */,
+				E17B334B287DE34C00FF14C2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E17B334B287DE34C00FF14C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E17B334A287DE34C00FF14C2 /* WildTangz CNFT Widget.app */,
+				E17B335F287DE35000FF14C2 /* WildTangz CNFT WidgetTests.xctest */,
+				E17B3369287DE35000FF14C2 /* WildTangz CNFT WidgetUITests.xctest */,
+				E17B3380287DE57500FF14C2 /* iOS WidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E17B334C287DE34C00FF14C2 /* WildTangz CNFT Widget */ = {
+			isa = PBXGroup;
+			children = (
+				E15014ED287EAD420076D8A6 /* WildTangz CNFT Widget.entitlements */,
+				E17B334D287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift */,
+				E17B334F287DE34C00FF14C2 /* ContentView.swift */,
+				E17B3351287DE34F00FF14C2 /* Assets.xcassets */,
+				E17B3356287DE34F00FF14C2 /* Persistence.swift */,
+				E17B3358287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodeld */,
+				E17B3353287DE34F00FF14C2 /* Preview Content */,
+				E19D0080287F44B70067CB8F /* ColorExtension.swift */,
+				E1E505DB287F7FCC00796263 /* PoolPm.swift */,
+			);
+			path = "WildTangz CNFT Widget";
+			sourceTree = "<group>";
+		};
+		E17B3353287DE34F00FF14C2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E17B3354287DE34F00FF14C2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E17B3362287DE35000FF14C2 /* WildTangz CNFT WidgetTests */ = {
+			isa = PBXGroup;
+			children = (
+				E17B3363287DE35000FF14C2 /* WildTangz_CNFT_WidgetTests.swift */,
+			);
+			path = "WildTangz CNFT WidgetTests";
+			sourceTree = "<group>";
+		};
+		E17B336C287DE35000FF14C2 /* WildTangz CNFT WidgetUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E17B336D287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITests.swift */,
+				E17B336F287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITestsLaunchTests.swift */,
+			);
+			path = "WildTangz CNFT WidgetUITests";
+			sourceTree = "<group>";
+		};
+		E17B3381287DE57500FF14C2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E17B3382287DE57500FF14C2 /* WidgetKit.framework */,
+				E17B3384287DE57500FF14C2 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E17B3386287DE57500FF14C2 /* iOS Widget */ = {
+			isa = PBXGroup;
+			children = (
+				E17B3387287DE57500FF14C2 /* iOS_Widget.swift */,
+				E17B3389287DE57500FF14C2 /* iOS_Widget.intentdefinition */,
+				E17B338A287DE57700FF14C2 /* Assets.xcassets */,
+				E17B338C287DE57700FF14C2 /* Info.plist */,
+			);
+			path = "iOS Widget";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E17B3349287DE34C00FF14C2 /* WildTangz CNFT Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E17B3373287DE35000FF14C2 /* Build configuration list for PBXNativeTarget "WildTangz CNFT Widget" */;
+			buildPhases = (
+				E17B3346287DE34C00FF14C2 /* Sources */,
+				E17B3347287DE34C00FF14C2 /* Frameworks */,
+				E17B3348287DE34C00FF14C2 /* Resources */,
+				E17B3395287DE57700FF14C2 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1A8C497287F864300FF44B8 /* PBXTargetDependency */,
+				E19D007C287F40600067CB8F /* PBXTargetDependency */,
+				E17B3390287DE57700FF14C2 /* PBXTargetDependency */,
+			);
+			name = "WildTangz CNFT Widget";
+			packageProductDependencies = (
+				E1F37E18287FCB11005759F4 /* Toast */,
+				E1F37E1D287FCB40005759F4 /* SwiftyJSON */,
+			);
+			productName = "WildTangz CNFT Widget";
+			productReference = E17B334A287DE34C00FF14C2 /* WildTangz CNFT Widget.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E17B335E287DE35000FF14C2 /* WildTangz CNFT WidgetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E17B3376287DE35000FF14C2 /* Build configuration list for PBXNativeTarget "WildTangz CNFT WidgetTests" */;
+			buildPhases = (
+				E17B335B287DE35000FF14C2 /* Sources */,
+				E17B335C287DE35000FF14C2 /* Frameworks */,
+				E17B335D287DE35000FF14C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E17B3361287DE35000FF14C2 /* PBXTargetDependency */,
+			);
+			name = "WildTangz CNFT WidgetTests";
+			productName = "WildTangz CNFT WidgetTests";
+			productReference = E17B335F287DE35000FF14C2 /* WildTangz CNFT WidgetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E17B3368287DE35000FF14C2 /* WildTangz CNFT WidgetUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E17B3379287DE35000FF14C2 /* Build configuration list for PBXNativeTarget "WildTangz CNFT WidgetUITests" */;
+			buildPhases = (
+				E17B3365287DE35000FF14C2 /* Sources */,
+				E17B3366287DE35000FF14C2 /* Frameworks */,
+				E17B3367287DE35000FF14C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E17B336B287DE35000FF14C2 /* PBXTargetDependency */,
+			);
+			name = "WildTangz CNFT WidgetUITests";
+			productName = "WildTangz CNFT WidgetUITests";
+			productReference = E17B3369287DE35000FF14C2 /* WildTangz CNFT WidgetUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		E17B337F287DE57500FF14C2 /* iOS WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E17B3392287DE57700FF14C2 /* Build configuration list for PBXNativeTarget "iOS WidgetExtension" */;
+			buildPhases = (
+				E17B337C287DE57500FF14C2 /* Sources */,
+				E17B337D287DE57500FF14C2 /* Frameworks */,
+				E17B337E287DE57500FF14C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E19D007A287F40060067CB8F /* PBXTargetDependency */,
+			);
+			name = "iOS WidgetExtension";
+			packageProductDependencies = (
+				E1F37E1B287FCB27005759F4 /* SwiftyJSON */,
+			);
+			productName = "iOS WidgetExtension";
+			productReference = E17B3380287DE57500FF14C2 /* iOS WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E17B3342287DE34C00FF14C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					E17B3349287DE34C00FF14C2 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					E17B335E287DE35000FF14C2 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = E17B3349287DE34C00FF14C2;
+					};
+					E17B3368287DE35000FF14C2 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = E17B3349287DE34C00FF14C2;
+					};
+					E17B337F287DE57500FF14C2 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = E17B3345287DE34C00FF14C2 /* Build configuration list for PBXProject "WildTangz CNFT Widget" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E17B3341287DE34C00FF14C2;
+			packageReferences = (
+				E1F37E17287FCB11005759F4 /* XCRemoteSwiftPackageReference "toast-swift" */,
+				E1F37E1A287FCB27005759F4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
+			productRefGroup = E17B334B287DE34C00FF14C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E17B3349287DE34C00FF14C2 /* WildTangz CNFT Widget */,
+				E17B335E287DE35000FF14C2 /* WildTangz CNFT WidgetTests */,
+				E17B3368287DE35000FF14C2 /* WildTangz CNFT WidgetUITests */,
+				E17B337F287DE57500FF14C2 /* iOS WidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E17B3348287DE34C00FF14C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E17B3355287DE34F00FF14C2 /* Preview Assets.xcassets in Resources */,
+				E17B3352287DE34F00FF14C2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B335D287DE35000FF14C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B3367287DE35000FF14C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B337E287DE57500FF14C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E17B338B287DE57700FF14C2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E17B3346287DE34C00FF14C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E17B3357287DE34F00FF14C2 /* Persistence.swift in Sources */,
+				E1E505DC287F7FCC00796263 /* PoolPm.swift in Sources */,
+				E17B338E287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */,
+				E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */,
+				E19D0081287F44B70067CB8F /* ColorExtension.swift in Sources */,
+				E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */,
+				E17B335A287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B335B287DE35000FF14C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E17B3364287DE35000FF14C2 /* WildTangz_CNFT_WidgetTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B3365287DE35000FF14C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E17B3370287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITestsLaunchTests.swift in Sources */,
+				E17B336E287DE35000FF14C2 /* WildTangz_CNFT_WidgetUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17B337C287DE57500FF14C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E19D0082287F44FB0067CB8F /* ColorExtension.swift in Sources */,
+				E17B338D287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */,
+				E1E505DD287F7FCC00796263 /* PoolPm.swift in Sources */,
+				E17B3388287DE57500FF14C2 /* iOS_Widget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E17B3361287DE35000FF14C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E17B3349287DE34C00FF14C2 /* WildTangz CNFT Widget */;
+			targetProxy = E17B3360287DE35000FF14C2 /* PBXContainerItemProxy */;
+		};
+		E17B336B287DE35000FF14C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E17B3349287DE34C00FF14C2 /* WildTangz CNFT Widget */;
+			targetProxy = E17B336A287DE35000FF14C2 /* PBXContainerItemProxy */;
+		};
+		E17B3390287DE57700FF14C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E17B337F287DE57500FF14C2 /* iOS WidgetExtension */;
+			targetProxy = E17B338F287DE57700FF14C2 /* PBXContainerItemProxy */;
+		};
+		E19D007A287F40060067CB8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E19D0079287F40060067CB8F /* SwiftyJSON */;
+		};
+		E19D007C287F40600067CB8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E19D007B287F40600067CB8F /* SwiftyJSON */;
+		};
+		E1A8C497287F864300FF44B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E1A8C496287F864300FF44B8 /* Toast */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E17B3371287DE35000FF14C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E17B3372287DE35000FF14C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E17B3374287DE35000FF14C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "WildTangz CNFT Widget/WildTangz CNFT Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WildTangz CNFT Widget/Preview Content\"";
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E17B3375287DE35000FF14C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "WildTangz CNFT Widget/WildTangz CNFT Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WildTangz CNFT Widget/Preview Content\"";
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E17B3377287DE35000FF14C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-WidgetTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WildTangz CNFT Widget.app/WildTangz CNFT Widget";
+			};
+			name = Debug;
+		};
+		E17B3378287DE35000FF14C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-WidgetTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WildTangz CNFT Widget.app/WildTangz CNFT Widget";
+			};
+			name = Release;
+		};
+		E17B337A287DE35000FF14C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-WidgetUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WildTangz CNFT Widget";
+			};
+			name = Debug;
+		};
+		E17B337B287DE35000FF14C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-WidgetUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WildTangz CNFT Widget";
+			};
+			name = Release;
+		};
+		E17B3393287DE57700FF14C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "iOS WidgetExtension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "iOS Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-Widget.iOS-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E17B3394287DE57700FF14C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "iOS WidgetExtension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QFBYPSY79U;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "iOS Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-Widget.iOS-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E17B3345287DE34C00FF14C2 /* Build configuration list for PBXProject "WildTangz CNFT Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17B3371287DE35000FF14C2 /* Debug */,
+				E17B3372287DE35000FF14C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E17B3373287DE35000FF14C2 /* Build configuration list for PBXNativeTarget "WildTangz CNFT Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17B3374287DE35000FF14C2 /* Debug */,
+				E17B3375287DE35000FF14C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E17B3376287DE35000FF14C2 /* Build configuration list for PBXNativeTarget "WildTangz CNFT WidgetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17B3377287DE35000FF14C2 /* Debug */,
+				E17B3378287DE35000FF14C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E17B3379287DE35000FF14C2 /* Build configuration list for PBXNativeTarget "WildTangz CNFT WidgetUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17B337A287DE35000FF14C2 /* Debug */,
+				E17B337B287DE35000FF14C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E17B3392287DE57700FF14C2 /* Build configuration list for PBXNativeTarget "iOS WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17B3393287DE57700FF14C2 /* Debug */,
+				E17B3394287DE57700FF14C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E19D0076287F3FB30067CB8F /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		E1E505DE287F817E00796263 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		E1F37E17287FCB11005759F4 /* XCRemoteSwiftPackageReference "toast-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BastiaanJansen/toast-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		E1F37E1A287FCB27005759F4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E19D0079287F40060067CB8F /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19D0076287F3FB30067CB8F /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		E19D007B287F40600067CB8F /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19D0076287F3FB30067CB8F /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		E1A8C496287F864300FF44B8 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1E505DE287F817E00796263 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		E1F37E18287FCB11005759F4 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1F37E17287FCB11005759F4 /* XCRemoteSwiftPackageReference "toast-swift" */;
+			productName = Toast;
+		};
+		E1F37E1B287FCB27005759F4 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1F37E1A287FCB27005759F4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		E1F37E1D287FCB40005759F4 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1F37E1A287FCB27005759F4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		E17B3358287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E17B3359287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodel */,
+			);
+			currentVersion = E17B3359287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodel */;
+			path = WildTangz_CNFT_Widget.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E17B3342287DE34C00FF14C2 /* Project object */;
+}

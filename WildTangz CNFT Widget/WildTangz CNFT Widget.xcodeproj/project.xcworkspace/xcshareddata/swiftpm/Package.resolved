@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftyjson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyJSON/SwiftyJSON",
+      "state" : {
+        "revision" : "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+        "version" : "5.0.1"
+      }
+    },
+    {
+      "identity" : "toast-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BastiaanJansen/toast-swift",
+      "state" : {
+        "revision" : "7fc825d0bbb55a8d98d46af48f51844e0298e7b5",
+        "version" : "1.0.6"
+      }
+    }
+  ],
+  "version" : 2
+}
