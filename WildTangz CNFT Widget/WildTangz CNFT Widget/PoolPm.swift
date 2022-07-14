@@ -23,6 +23,7 @@ struct PoolPm {
     static let IPFS_PROTOCOL : String = "ipfs://"
     static let IPFS_V1_START : String.Element = "Q"
     static let IPFS_V2 : String = "bafy"
+    static let MAX_LOAD_ATTEMPTS : Int = 5
     
     static func getNftFromAddrString(addressOrAsset: String) -> Data? {
         if addressOrAsset.starts(with: PoolPm.ASSET_PREFIX) {
@@ -33,11 +34,9 @@ struct PoolPm {
     
     static private func getAssetData(assetId: String) -> Data? {
         do {
-            let metadata : JSON = try getAsJson(url: "\(PoolPm.POOLPM_ASSET_API)/\(assetId)")
-            if isNft(token: metadata), let imageUrl: String = getNftImageUrl(token: metadata) {
-                let webUrl = convertedToWeb(imageUrl: imageUrl)
-                os_log("%s", log: PoolPm.LOGGER, type: .info, webUrl)
-                return try Data(contentsOf: URL(string: webUrl)!)
+            let token : JSON = try getAsJson(url: "\(PoolPm.POOLPM_ASSET_API)/\(assetId)")
+            if isNft(token: token) {
+                return getNftImage(token: token)
             }
         } catch {
             // Some generic error occurred, return the default NFT
@@ -55,8 +54,19 @@ struct PoolPm {
         return token["quantity"].intValue == 1
     }
     
-    static private func getNftImageUrl(token: JSON) -> String? {
-        return token["metadata"]["image"].stringValue
+    static private func getNftImage(token: JSON) -> Data? {
+        let imageJson = token["metadata"]["image"]
+        if let imageUrl = imageJson.string {
+            let webUrl = convertedToWeb(imageUrl: imageUrl)
+            os_log("%s", log: PoolPm.LOGGER, type: .info, webUrl)
+            return try? Data(contentsOf: URL(string: webUrl)!)
+        } else if let imageDataArr = imageJson.array {
+            let imageDataConcat : String = imageDataArr.map({ (subData : JSON) in subData.stringValue }).reduce("", +)
+            let imageDataIndex : String.Index = imageDataConcat.firstIndex(of: ",")!
+            let imageDataStr : String = String(imageDataConcat[imageDataConcat.index(imageDataIndex, offsetBy: 1)...])
+            return Data(base64Encoded: imageDataStr)
+        }
+        return nil
     }
     
     static private func getRandomNft(address: String) -> Data? {
@@ -64,16 +74,20 @@ struct PoolPm {
             let metadata : JSON = try getAsJson(url: "\(PoolPm.POOLPM_WALLET_API)/\(address)")
             os_log("%s", log: PoolPm.LOGGER, type: .debug, metadata.stringValue)
             
-            var tokens : [String] = []
+            var tokens : [JSON] = []
             for token in metadata["tokens"].arrayValue {
-                if isNft(token: token), let imageUrl: String = getNftImageUrl(token: token) {
-                    tokens.append(convertedToWeb(imageUrl:   imageUrl))
+                if isNft(token: token) {
+                    tokens.append(token)
                 }
             }
             
-            if let randomNftUrl = tokens.randomElement(), let url = URL(string: randomNftUrl) {
-                os_log("%s", log: PoolPm.LOGGER, type: .debug, randomNftUrl)
-                return try Data(contentsOf: url)
+            for _ in 1...PoolPm.MAX_LOAD_ATTEMPTS {
+                if let randomNft = tokens.randomElement() {
+                    os_log("%s", log: PoolPm.LOGGER, type: .debug, randomNft.rawString()!)
+                    if let nftImage = getNftImage(token: randomNft) {
+                        return nftImage
+                    }
+                }
             }
         } catch {
             // Some generic error occurred, return the default NFT
