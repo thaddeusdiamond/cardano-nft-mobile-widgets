@@ -73,7 +73,7 @@
 /* Begin PBXFileReference section */
 		E15014ED287EAD420076D8A6 /* WildTangz CNFT Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WildTangz CNFT Widget.entitlements"; sourceTree = "<group>"; };
 		E15014EE287EAD7A0076D8A6 /* iOS WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "iOS WidgetExtension.entitlements"; sourceTree = "<group>"; };
-		E17B334A287DE34C00FF14C2 /* WildTangz CNFT Widget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WildTangz CNFT Widget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E17B334A287DE34C00FF14C2 /* Cardano NFTs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cardano NFTs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17B334D287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildTangz_CNFT_WidgetApp.swift; sourceTree = "<group>"; };
 		E17B334F287DE34C00FF14C2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E17B3351287DE34F00FF14C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		E17B334B287DE34C00FF14C2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E17B334A287DE34C00FF14C2 /* WildTangz CNFT Widget.app */,
+				E17B334A287DE34C00FF14C2 /* Cardano NFTs.app */,
 				E17B335F287DE35000FF14C2 /* WildTangz CNFT WidgetTests.xctest */,
 				E17B3369287DE35000FF14C2 /* WildTangz CNFT WidgetUITests.xctest */,
 				E17B3380287DE57500FF14C2 /* iOS WidgetExtension.appex */,
@@ -243,7 +243,7 @@
 				E1F37E1D287FCB40005759F4 /* SwiftyJSON */,
 			);
 			productName = "WildTangz CNFT Widget";
-			productReference = E17B334A287DE34C00FF14C2 /* WildTangz CNFT Widget.app */;
+			productReference = E17B334A287DE34C00FF14C2 /* Cardano NFTs.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E17B335E287DE35000FF14C2 /* WildTangz CNFT WidgetTests */ = {
@@ -596,6 +596,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -604,7 +605,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-Widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Cardano NFTs";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -628,6 +629,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -636,7 +638,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.WildTangz-CNFT-Widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Cardano NFTs";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -730,7 +732,7 @@
 				DEVELOPMENT_TEAM = QFBYPSY79U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS Widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "iOS Widget";
+				INFOPLIST_KEY_CFBundleDisplayName = "Cardano NFTs Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -758,7 +760,7 @@
 				DEVELOPMENT_TEAM = QFBYPSY79U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS Widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "iOS Widget";
+				INFOPLIST_KEY_CFBundleDisplayName = "Cardano NFTs Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

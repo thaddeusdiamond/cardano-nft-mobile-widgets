@@ -34,57 +34,56 @@ struct ContentView: View {
         ZStack {
             Color(ContentView.BG_COLOR).ignoresSafeArea()
             VStack {
-                VStack {
-                    Text("Cardano NFT Viewer")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                    TextField("Enter handle, address, or asset ID here...", text: $newAddress)
-                        .font(.title3)
-                        .padding()
-                        .background(.white)
-                        .cornerRadius(8)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
-                    Button {
-                        guard hasRequiredAssets(address: self.newAddress, policy: ContentView.REQUIRED_POLICY, minRequired: ContentView.REQUIRED_NUM) else {
-                            Toast.text(
-                                "Address needs at least \(ContentView.REQUIRED_NUM) \(ContentView.REQUIRED_NAME) NFT(s)",
-                                config: ToastConfiguration(displayTime: 20)
-                            ).show()
-                            return
-                        }
-                        self.selectedAddress = self.newAddress
-                        UserDefaults(suiteName: "group.wildtangz")!.set(self.selectedAddress, forKey: PersistenceController.ADDR_KEY)
-                        WidgetCenter.shared.reloadTimelines(ofKind: "group.wildtangz")
-                        self.newAddress = ""
-                    } label: {
-                        Text("Update")
-                            .foregroundColor(.white)
-                            .font(.title2)
-                            .padding()
-                            .background(.gray)
-                            .cornerRadius(8)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
-                    }.padding()
-                    
-                    Spacer()
-                    
-                    Text("Current Address Selected")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                    Text(selectedAddress)
-                        .font(.title3)
-                        .foregroundColor(.white)
-                        .padding(.top)
-                    
-                    Spacer()
-                }.padding()
-                
-                Spacer()
-                
-                let logoImage = UIImage(named: "BannerIcon")!
-                Image(uiImage: logoImage).resizable().scaledToFit()
+                GeometryReader { (geo) in
+                    ScrollView {
+                        VStack {
+                            Text("Cardano NFT Viewer")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            TextField("Enter handle, address, or asset ID...", text: $newAddress)
+                                .font(.title3)
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(8)
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
+                            Button {
+                                guard hasRequiredAssets(address: self.newAddress, policy: ContentView.REQUIRED_POLICY, minRequired: ContentView.REQUIRED_NUM) else {
+                                    Toast.text(
+                                        "Address needs at least \(ContentView.REQUIRED_NUM) \(ContentView.REQUIRED_NAME) NFT(s)",
+                                        config: ToastConfiguration(displayTime: 20)
+                                    ).show()
+                                    return
+                                }
+                                self.selectedAddress = self.newAddress
+                                UserDefaults(suiteName: "group.wildtangz")!.set(self.selectedAddress, forKey: PersistenceController.ADDR_KEY)
+                                WidgetCenter.shared.reloadTimelines(ofKind: "group.wildtangz")
+                                self.newAddress = ""
+                            } label: {
+                                Text("Update")
+                                    .foregroundColor(.white)
+                                    .font(.title2)
+                                    .padding()
+                                    .background(.gray)
+                                    .cornerRadius(8)
+                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
+                            }.padding()
+                            
+                            Text("Current Selection")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            Text(selectedAddress)
+                                .font(.title3)
+                                .foregroundColor(.white)
+                        
+                            Spacer()
+                            
+                            let logoImage = UIImage(named: "BannerIcon")!
+                            Image(uiImage: logoImage).resizable().scaledToFit().frame(maxWidth: 500)
+                        }.padding().frame(minHeight: geo.size.height)
+                    }
+                }
             }
         }
     }
