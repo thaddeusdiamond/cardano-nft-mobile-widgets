@@ -60,13 +60,15 @@ struct iOS_WidgetEntryView : View {
     var entry: RandomNftEntry
 
     var body: some View {
-        ZStack {
-            if let imageData : Data = entry.imageData, let uiImage : UIImage = UIImage(data: imageData) {
-                Color(.black)
-                Image(uiImage: uiImage).resizable().scaledToFit()
-            } else {
-                Color(RandomNftEntry.DEFAULT_BG_COLOR)
-                Image(uiImage: UIImage(named: RandomNftEntry.PLACEHOLDER_IMG_NAME)!).resizable().scaledToFit()
+        autoreleasepool {
+            ZStack {
+                if let imageData : Data = entry.imageData, let uiImage : UIImage = UIImage(data: imageData) {
+                    Color(.black)
+                    Image(uiImage: uiImage).resizable().scaledToFit()
+                } else {
+                    Color(RandomNftEntry.DEFAULT_BG_COLOR)
+                    Image(uiImage: UIImage(named: RandomNftEntry.PLACEHOLDER_IMG_NAME)!).resizable().scaledToFit()
+                }
             }
         }
     }
