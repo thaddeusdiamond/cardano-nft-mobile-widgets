@@ -17,6 +17,8 @@ struct ContentView: View {
     static let REQUIRED_NAME : String = "Wild Tangz"
     static let REQUIRED_NUM : Int = 1
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @State var newAddress: String = ""
     @State var selectedAddress: String = (UserDefaults(suiteName: "group.wildtangz")!.string(forKey: PersistenceController.ADDR_KEY) ?? "")
     
@@ -32,6 +34,8 @@ struct ContentView: View {
         
     var body: some View {
         ZStack {
+            let darkAwareForeground = (colorScheme == .dark) ? Color.black : Color.white
+            let darkAwareBackground = (colorScheme == .dark) ? Color.white : Color.black
             Color(ContentView.BG_COLOR).ignoresSafeArea()
             VStack {
                 GeometryReader { (geo) in
@@ -40,13 +44,13 @@ struct ContentView: View {
                             Text("Cardano NFT Viewer")
                                 .font(.title)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(darkAwareForeground)
                             TextField("Enter handle, address, or asset ID...", text: $newAddress)
                                 .font(.title3)
                                 .padding()
-                                .background(.white)
+                                .background(darkAwareForeground)
                                 .cornerRadius(8)
-                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(darkAwareBackground, lineWidth: 1))
                             Button {
                                 guard hasRequiredAssets(address: self.newAddress, policy: ContentView.REQUIRED_POLICY, minRequired: ContentView.REQUIRED_NUM) else {
                                     Toast.text(
@@ -61,21 +65,21 @@ struct ContentView: View {
                                 self.newAddress = ""
                             } label: {
                                 Text("Update")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(darkAwareForeground)
                                     .font(.title2)
                                     .padding()
                                     .background(.gray)
                                     .cornerRadius(8)
-                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
+                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(darkAwareBackground, lineWidth: 1))
                             }.padding()
                             
                             Text("Current Selection")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(darkAwareForeground)
                             Text(selectedAddress)
                                 .font(.title3)
-                                .foregroundColor(.white)
+                                .foregroundColor(darkAwareForeground)
                         
                             Spacer()
                             
