@@ -80,6 +80,17 @@ struct ContentView: View {
                             Text(selectedAddress)
                                 .font(.title3)
                                 .foregroundColor(darkAwareForeground)
+                            Button {
+                                WidgetCenter.shared.reloadTimelines(ofKind: "group.wildtangz")
+                            } label: {
+                                Text("Refresh")
+                                    .foregroundColor(darkAwareForeground)
+                                    .font(.title2)
+                                    .padding()
+                                    .background(.gray)
+                                    .cornerRadius(8)
+                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(darkAwareBackground, lineWidth: 1))
+                            }
                         
                             Spacer()
                             
