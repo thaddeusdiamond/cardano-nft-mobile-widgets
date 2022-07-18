@@ -23,7 +23,7 @@ struct RandomNftEntry: TimelineEntry {
 
 struct RandomNftProvider: IntentTimelineProvider {
     
-    static let LOGGER = OSLog(subsystem: "group.wildtangz", category: "main")
+    static let LOGGER = OSLog(subsystem: AppConstants.CONFIG_GROUP_NAME, category: "main")
     
     static let ADDR_KEY = "selected_address"
     
@@ -39,7 +39,7 @@ struct RandomNftProvider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        guard let address = UserDefaults(suiteName: "group.wildtangz")!.string(forKey: RandomNftProvider.ADDR_KEY) else {
+        guard let address = UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.string(forKey: RandomNftProvider.ADDR_KEY) else {
             return
         }
         
@@ -76,7 +76,7 @@ struct iOS_WidgetEntryView : View {
 
 @main
 struct iOS_Widget: Widget {
-    let kind: String = "group.wildtangz"
+    let kind: String = AppConstants.CONFIG_GROUP_NAME
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: RandomNftProvider()) { entry in

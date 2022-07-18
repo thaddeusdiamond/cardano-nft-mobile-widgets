@@ -91,3 +91,7 @@ iOSInjectionProject/
 
 # Mac OS X
 .DS_Store
+
+# Signing and asset creation for App Stores
+certificates/
+private/

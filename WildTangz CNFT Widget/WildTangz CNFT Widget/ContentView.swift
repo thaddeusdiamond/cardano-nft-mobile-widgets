@@ -20,7 +20,7 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     @State var newAddress: String = ""
-    @State var selectedAddress: String = (UserDefaults(suiteName: "group.wildtangz")!.string(forKey: PersistenceController.ADDR_KEY) ?? "")
+    @State var selectedAddress: String = (UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.string(forKey: PersistenceController.ADDR_KEY) ?? "")
     
     func hasRequiredAssets(address: String, policy: String, minRequired: Int) -> Bool {
         var totalCount = 0
@@ -60,8 +60,8 @@ struct ContentView: View {
                                     return
                                 }
                                 self.selectedAddress = self.newAddress
-                                UserDefaults(suiteName: "group.wildtangz")!.set(self.selectedAddress, forKey: PersistenceController.ADDR_KEY)
-                                WidgetCenter.shared.reloadTimelines(ofKind: "group.wildtangz")
+                                UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.set(self.selectedAddress, forKey: PersistenceController.ADDR_KEY)
+                                WidgetCenter.shared.reloadTimelines(ofKind: AppConstants.CONFIG_GROUP_NAME)
                                 self.newAddress = ""
                             } label: {
                                 Text("Update")
@@ -81,7 +81,7 @@ struct ContentView: View {
                                 .font(.title3)
                                 .foregroundColor(darkAwareForeground)
                             Button {
-                                WidgetCenter.shared.reloadTimelines(ofKind: "group.wildtangz")
+                                WidgetCenter.shared.reloadTimelines(ofKind: AppConstants.CONFIG_GROUP_NAME)
                             } label: {
                                 Text("Refresh")
                                     .foregroundColor(darkAwareForeground)
