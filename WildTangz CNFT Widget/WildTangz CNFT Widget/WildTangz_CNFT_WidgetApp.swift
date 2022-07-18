@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 @main
 struct WildTangz_CNFT_WidgetApp: App {
@@ -15,6 +16,9 @@ struct WildTangz_CNFT_WidgetApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    WidgetCenter.shared.reloadTimelines(ofKind: "group.wildtangz")
+                }
         }
     }
 }
