@@ -62,9 +62,12 @@ struct PoolPm {
             return try? Data(contentsOf: URL(string: webUrl)!)
         } else if let imageDataArr = imageJson.array {
             let imageDataConcat : String = imageDataArr.map({ (subData : JSON) in subData.stringValue }).reduce("", +)
-            let imageDataIndex : String.Index = imageDataConcat.firstIndex(of: ",")!
-            let imageDataStr : String = String(imageDataConcat[imageDataConcat.index(imageDataIndex, offsetBy: 1)...])
-            return Data(base64Encoded: imageDataStr)
+            let imageDataInlineStart : String.Index = imageDataConcat.firstIndex(of: ",")!
+            let imageDataInline = String(imageDataConcat[imageDataConcat.index(imageDataInlineStart, offsetBy: 1)...])
+            if imageDataConcat.range(of: "base64,") != nil {
+                return Data(base64Encoded: imageDataInline)
+            }
+            return Data(imageDataInline.utf8)
         }
         return nil
     }

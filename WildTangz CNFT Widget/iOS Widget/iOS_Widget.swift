@@ -10,6 +10,7 @@ import WidgetKit
 import SwiftUI
 import Intents
 import SwiftyJSON
+import SVGView
 
 struct RandomNftEntry: TimelineEntry {
     
@@ -62,9 +63,13 @@ struct iOS_WidgetEntryView : View {
     var body: some View {
         autoreleasepool {
             ZStack {
-                if let imageData : Data = entry.imageData, let uiImage : UIImage = UIImage(data: imageData) {
+                if let imageData : Data = entry.imageData {
                     Color(.black)
-                    Image(uiImage: uiImage).resizable().scaledToFit()
+                    if let uiImage : UIImage = UIImage(data: imageData) {
+                        Image(uiImage: uiImage).resizable().scaledToFit()
+                    } else if let xml = DOMParser.parse(data: imageData) {
+                        SVGView(xml: xml)
+                    }
                 } else {
                     Color(RandomNftEntry.DEFAULT_BG_COLOR)
                     Image(uiImage: UIImage(named: RandomNftEntry.PLACEHOLDER_IMG_NAME)!).resizable().scaledToFit()

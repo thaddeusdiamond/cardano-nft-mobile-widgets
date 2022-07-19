@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E12E1DB72885B05F00E7CE73 /* NFTStickersBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E1DB62885B05F00E7CE73 /* NFTStickersBrowserViewController.swift */; };
+		E12F3BF2288662E900675B9A /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = E12F3BF1288662E900675B9A /* SVGView */; };
 		E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334D287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift */; };
 		E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334F287DE34C00FF14C2 /* ContentView.swift */; };
 		E17B3352287DE34F00FF14C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17B3351287DE34F00FF14C2 /* Assets.xcassets */; };
@@ -151,6 +152,7 @@
 			files = (
 				E1E7CF452885E945004D4C57 /* SwiftyJSON in Frameworks */,
 				E17B3385287DE57500FF14C2 /* SwiftUI.framework in Frameworks */,
+				E12F3BF2288662E900675B9A /* SVGView in Frameworks */,
 				E17B3383287DE57500FF14C2 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,6 +351,7 @@
 			name = "iOS WidgetExtension";
 			packageProductDependencies = (
 				E1E7CF442885E945004D4C57 /* SwiftyJSON */,
+				E12F3BF1288662E900675B9A /* SVGView */,
 			);
 			productName = "iOS WidgetExtension";
 			productReference = E17B3380287DE57500FF14C2 /* iOS WidgetExtension.appex */;
@@ -412,6 +415,7 @@
 			packageReferences = (
 				E1E7CF3E2885E92E004D4C57 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				E1E7CF412885E93D004D4C57 /* XCRemoteSwiftPackageReference "toast-swift" */,
+				E12F3BF0288662E900675B9A /* XCRemoteSwiftPackageReference "SVGView" */,
 			);
 			productRefGroup = E17B334B287DE34C00FF14C2 /* Products */;
 			projectDirPath = "";
@@ -1024,6 +1028,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E12F3BF0288662E900675B9A /* XCRemoteSwiftPackageReference "SVGView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/SVGView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		E19D0076287F3FB30067CB8F /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
@@ -1059,6 +1071,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E12F3BF1288662E900675B9A /* SVGView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E12F3BF0288662E900675B9A /* XCRemoteSwiftPackageReference "SVGView" */;
+			productName = SVGView;
+		};
 		E19D0079287F40060067CB8F /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E19D0076287F3FB30067CB8F /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
