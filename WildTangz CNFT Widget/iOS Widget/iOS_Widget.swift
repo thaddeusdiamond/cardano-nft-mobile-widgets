@@ -26,8 +26,6 @@ struct RandomNftProvider: IntentTimelineProvider {
     
     static let LOGGER = OSLog(subsystem: AppConstants.CONFIG_GROUP_NAME, category: "main")
     
-    static let ADDR_KEY = "selected_address"
-    
     func placeholder(in context: Context) -> RandomNftEntry {
         return RandomNftEntry(date: Date(), configuration: ConfigurationIntent(), imageData: nil)
     }
@@ -40,7 +38,7 @@ struct RandomNftProvider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        guard let address = UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.string(forKey: RandomNftProvider.ADDR_KEY) else {
+        guard let address = UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.string(forKey: AppConstants.ADDR_KEY) else {
             return
         }
         

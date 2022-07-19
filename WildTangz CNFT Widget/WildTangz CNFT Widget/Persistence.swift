@@ -9,7 +9,6 @@ import CoreData
 
 struct PersistenceController {
     
-    static let ADDR_KEY = "selected_address"
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {

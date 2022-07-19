@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		E12E1DB72885B05F00E7CE73 /* NFTStickersBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E1DB62885B05F00E7CE73 /* NFTStickersBrowserViewController.swift */; };
 		E12F3BF2288662E900675B9A /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = E12F3BF1288662E900675B9A /* SVGView */; };
+		E12F3BF3288673F100675B9A /* PoolPm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E505DB287F7FCC00796263 /* PoolPm.swift */; };
+		E12F3BF42886752400675B9A /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D150942885ED9C007E22D8 /* AppConstants.swift */; };
+		E12F3BF62886754100675B9A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E12F3BF52886754100675B9A /* SwiftyJSON */; };
 		E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334D287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift */; };
 		E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334F287DE34C00FF14C2 /* ContentView.swift */; };
 		E17B3352287DE34F00FF14C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17B3351287DE34F00FF14C2 /* Assets.xcassets */; };
@@ -161,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E12F3BF62886754100675B9A /* SwiftyJSON in Frameworks */,
 				E1A948D32884BA59000E7CDF /* Messages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +374,9 @@
 			dependencies = (
 			);
 			name = "Cardano NFT Stickers";
+			packageProductDependencies = (
+				E12F3BF52886754100675B9A /* SwiftyJSON */,
+			);
 			productName = "Cardano NFT Stickers";
 			productReference = E1A948D12884BA59000E7CDF /* Cardano NFT Stickers.appex */;
 			productType = "com.apple.product-type.app-extension.messages";
@@ -522,8 +529,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E12F3BF3288673F100675B9A /* PoolPm.swift in Sources */,
 				E12E1DB72885B05F00E7CE73 /* NFTStickersBrowserViewController.swift in Sources */,
 				E1A948D62884BA59000E7CDF /* MessagesViewController.swift in Sources */,
+				E12F3BF42886752400675B9A /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1075,6 +1084,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E12F3BF0288662E900675B9A /* XCRemoteSwiftPackageReference "SVGView" */;
 			productName = SVGView;
+		};
+		E12F3BF52886754100675B9A /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1E7CF3E2885E92E004D4C57 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 		E19D0079287F40060067CB8F /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

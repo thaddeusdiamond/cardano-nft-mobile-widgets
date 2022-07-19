@@ -20,4 +20,29 @@ class NFTStickersBrowserViewController : MSStickerBrowserViewController {
         return stickers[index]
     }
     
+    func loadStickers() {
+        guard let address = UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.string(forKey: AppConstants.ADDR_KEY) else {
+            return
+        }
+        
+        if let sticker = createSticker(asset: address) {
+            stickers.append(sticker)
+        }
+    }
+    
+    private func createSticker(asset: String) -> MSSticker? {
+        do {
+            if let imageData : Data = PoolPm.getNftFromAddrString(addressOrAsset: asset) {
+                let documentDirPath : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let stickerFile : URL = documentDirPath.appendingPathComponent(asset)
+                try imageData.write(to: stickerFile)
+                
+                return try MSSticker(contentsOfFileURL: stickerFile, localizedDescription: asset)
+            }
+        } catch {
+            // Do nothing, an error occurred
+        }
+        return nil
+    }
+    
 }

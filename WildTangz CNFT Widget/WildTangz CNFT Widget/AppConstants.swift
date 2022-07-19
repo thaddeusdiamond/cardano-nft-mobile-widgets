@@ -8,5 +8,6 @@
 import Foundation
 
 struct AppConstants {
+    static let ADDR_KEY = "selected_address"
     static let CONFIG_GROUP_NAME = "group.com.wildtangz"
 }
