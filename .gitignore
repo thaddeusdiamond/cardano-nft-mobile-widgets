@@ -95,3 +95,4 @@ iOSInjectionProject/
 # Signing and asset creation for App Stores
 certificates/
 private/
+**/app/release/**
