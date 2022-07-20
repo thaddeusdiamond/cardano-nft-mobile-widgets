@@ -7,9 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.widget.RemoteViews
-import org.json.JSONObject
 import java.net.URL
-import java.nio.charset.Charset
 
 
 /**
@@ -44,36 +42,10 @@ private class UpdateWidgetTask(
     var appWidgetId: Int
 ) : AsyncTask<String, Integer, Bitmap>() {
 
-    private val BASE_URL : String = "https://pool.pm/wallet"
-    private val CHARSET : String = "UTF-8"
-
-    private val IPFS_GATEWAY : String = "https://infura-ipfs.io/ipfs"
-    private val IPFS_PROTOCOL : String = "ipfs://"
-    private val IPFS_V1_START : String = "Q"
-    private val IPFS_V2 : String = "bafy"
-
     private val MAX_RETRIES : Int = 10
 
     override fun doInBackground(vararg addressOrAssets: String?): Bitmap? {
-        // TODO: Support individual assets
-        val addressOrAsset = addressOrAssets[0]
-
-        val userWalletText = URL("${BASE_URL}/${addressOrAsset}").readText(Charset.forName(CHARSET))
-        val userWallet = JSONObject(userWalletText)
-        val tokens = userWallet.getJSONArray("tokens")
-        val eligibleImages = mutableListOf<Any>()
-        for (index in 0 until tokens.length()) {
-            val token = tokens.getJSONObject(index)
-            if (token.getInt("quantity") == 1 && token.has("metadata")) {
-                val tokenMetadata = token.getJSONObject("metadata")
-                if (tokenMetadata.has("image")) {
-                    eligibleImages.add(tokenMetadata.get("image"))
-                }
-            }
-        }
-
-        // TODO: Gatekeep on owning a Tangz
-
+        val eligibleImages = PoolPm.getNftUrls(addressOrAssets[0]!!)
         for (attempt in 0 until MAX_RETRIES) {
             val selectedImage = eligibleImages.randomOrNull()
             if (selectedImage == null) {
@@ -82,8 +54,7 @@ private class UpdateWidgetTask(
 
             try {
                 // TODO: If an array support (on-chain), parse SVG (switch on case using when)
-
-                val imageUrl = URL(convertedToWeb(selectedImage.toString()))
+                val imageUrl = URL(PoolPm.convertedToWeb(selectedImage.toString()))
                 return BitmapFactory.decodeStream(
                     imageUrl.openConnection().getInputStream(),
                     null,
@@ -94,19 +65,6 @@ private class UpdateWidgetTask(
             }
         }
         return null
-    }
-
-    private fun convertedToWeb(imageUrl: String): String {
-        if (imageUrl.startsWith(IPFS_PROTOCOL)) {
-            val cidv0 = imageUrl.substring(imageUrl.indexOf(IPFS_V1_START))
-            return "${IPFS_GATEWAY}/${cidv0}"
-        }
-
-        if (imageUrl.startsWith(IPFS_V2)) {
-            return "${IPFS_GATEWAY}/${imageUrl}"
-        }
-
-        return imageUrl
     }
 
     private fun getBitmapOptions() : BitmapFactory.Options {
