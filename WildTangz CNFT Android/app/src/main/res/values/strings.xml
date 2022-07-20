@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">WildTangz Cardano NFT</string>
-    <string name="shared_config_key">com.wildtangz</string>
+    <string name="shared_config">com.wildtangz</string>
+    <string name="selection_key">.nft.selection</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">View NFTs on Home Screen</string>
 </resources>

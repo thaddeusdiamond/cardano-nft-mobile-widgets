@@ -22,13 +22,11 @@ import com.wildtangz.cardano.nft.ui.theme.WildTangzCardanoNFTTheme
 
 class MainActivity : ComponentActivity() {
 
-    private val SELECTION_SUBKEY : String = ".nft.selection"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val sharedPreferences = getSharedPreferences(getString(R.string.shared_config_key), Context.MODE_PRIVATE)
-            bodyContent(sharedPreferences, SELECTION_SUBKEY)
+            val sharedPreferences = getSharedPreferences(getString(R.string.shared_config), Context.MODE_PRIVATE)
+            bodyContent(sharedPreferences, getString(R.string.selection_key))
         }
     }
 }
