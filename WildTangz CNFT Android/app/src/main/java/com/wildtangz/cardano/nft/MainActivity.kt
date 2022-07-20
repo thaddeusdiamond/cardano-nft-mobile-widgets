@@ -1,6 +1,9 @@
 package com.wildtangz.cardano.nft
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
@@ -32,6 +35,21 @@ class MainActivity : ComponentActivity() {
             bodyContent(this, sharedPreferences, getString(R.string.selection_key))
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        sendBroadcastFrom(this)
+    }
+
+}
+
+private fun sendBroadcastFrom(context: Context) {
+    val intent = Intent(context, NftViewerWidget::class.java)
+    intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+    val widgetIds = ComponentName(context.applicationContext, NftViewerWidget::class.java)
+    val ids = AppWidgetManager.getInstance(context.applicationContext).getAppWidgetIds(widgetIds)
+    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+    context.sendBroadcast(intent)
 }
 
 @Composable
@@ -55,6 +73,7 @@ fun bodyContent(appContext: Context, sharedPreferences: SharedPreferences, selec
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 CardanoSelection(
+                    context = appContext,
                     savedSelection = inputState,
                     enablingState = enablingState
                 )
@@ -130,11 +149,15 @@ fun CardanoLookup(
 }
 
 @Composable
-fun CardanoSelection(savedSelection: MutableState<String>, enablingState: MutableState<Boolean>) {
+fun CardanoSelection(
+    context: Context,
+    savedSelection: MutableState<String>,
+    enablingState: MutableState<Boolean>
+) {
     PrimaryText(text = "Current Selection", weight = FontWeight.Bold)
     PrimaryText(text = savedSelection.value)
     ThemedElevatedButton(text = "Refresh", enabled = enablingState, onClick = {
-        // TODO: Update Widget
+        sendBroadcastFrom(context)
     })
 }
 
@@ -191,6 +214,8 @@ private class AuthorizeConfigTask(
             putString(selectionSubkey, savingState.value)
             apply()
         }
+
+        sendBroadcastFrom(appContext)
     }
 
 }

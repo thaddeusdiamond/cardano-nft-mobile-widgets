@@ -1,8 +1,10 @@
 package com.wildtangz.cardano.nft
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
@@ -27,6 +29,10 @@ class NftViewerWidget : AppWidgetProvider() {
         }
     }
 
+    override fun onReceive(context: Context?, intent: Intent?) {
+        super.onReceive(context, intent)
+    }
+
     override fun onEnabled(context: Context) {
         // Enter relevant functionality for when the first widget is created
     }
@@ -43,6 +49,7 @@ private class UpdateWidgetTask(
 ) : AsyncTask<String, Integer, Bitmap>() {
 
     private val MAX_RETRIES : Int = 10
+    private val SAMPLE_SIZE_REDUCER : Int = 2
 
     override fun doInBackground(vararg addressOrAssets: String?): Bitmap? {
         val eligibleImages = PoolPm.getNftUrls(addressOrAssets[0]!!)
@@ -69,7 +76,7 @@ private class UpdateWidgetTask(
 
     private fun getBitmapOptions() : BitmapFactory.Options {
         val bitmapOptions = BitmapFactory.Options()
-        bitmapOptions.inSampleSize = 4
+        bitmapOptions.inSampleSize = SAMPLE_SIZE_REDUCER
         return bitmapOptions
     }
 
@@ -80,6 +87,15 @@ private class UpdateWidgetTask(
 
         val views = RemoteViews(context.packageName, R.layout.nft_viewer_widget)
         views.setImageViewBitmap(R.id.imageView, image)
+
+        val widgetIds = IntArray(1)
+        widgetIds[0] = appWidgetId
+
+        val intent = Intent(context, NftViewerWidget::class.java)
+        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, widgetIds)
+        val pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_IMMUTABLE)
+        views.setOnClickPendingIntent(R.id.relativeLayout, pendingIntent)
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views)
