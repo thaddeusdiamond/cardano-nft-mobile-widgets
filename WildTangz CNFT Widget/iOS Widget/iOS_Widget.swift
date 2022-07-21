@@ -13,10 +13,7 @@ import SwiftyJSON
 import SVGView
 
 struct RandomNftEntry: TimelineEntry {
-    
-    static let DEFAULT_BG_COLOR : UInt = 0x7E7D81
-    static let PLACEHOLDER_IMG_NAME = "DefaultWidgetImage"
-    
+        
     let date: Date
     let configuration: ConfigurationIntent
     let imageData: Data?
@@ -56,21 +53,24 @@ struct RandomNftProvider: IntentTimelineProvider {
 }
 
 struct iOS_WidgetEntryView : View {
+
+    static let PLACEHOLDER_IMG_NAME = "WidgetImage"
+
     var entry: RandomNftEntry
 
     var body: some View {
         autoreleasepool {
             ZStack {
-                if let imageData : Data = entry.imageData {
+                let imageData : Data? = entry.imageData
+                if imageData != nil, let uiImage : UIImage = UIImage(data: imageData!) {
                     Color(.black)
-                    if let uiImage : UIImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage).resizable().scaledToFit()
-                    } else if let xml = DOMParser.parse(data: imageData) {
-                        SVGView(xml: xml)
-                    }
+                    Image(uiImage: uiImage).resizable().scaledToFit()
+                } else if imageData != nil, let xml = DOMParser.parse(data: imageData!) {
+                    Color(.black)
+                    SVGView(xml: xml)
                 } else {
-                    Color(RandomNftEntry.DEFAULT_BG_COLOR)
-                    Image(uiImage: UIImage(named: RandomNftEntry.PLACEHOLDER_IMG_NAME)!).resizable().scaledToFit()
+                    let defaultImage = UIImage(named: iOS_WidgetEntryView.PLACEHOLDER_IMG_NAME)!
+                    Image(uiImage: defaultImage).resizable().scaledToFit()
                 }
             }
         }

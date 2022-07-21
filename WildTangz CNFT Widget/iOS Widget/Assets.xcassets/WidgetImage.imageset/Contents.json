@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "WildTangz Logo v2-1.png",
+      "filename" : "WildTangz Logo Android.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "WildTangz Logo v2-2.png",
+      "filename" : "WildTangz Logo Android-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "WildTangz Logo v2.png",
+      "filename" : "WildTangz Logo Android-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
