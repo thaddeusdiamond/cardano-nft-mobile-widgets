@@ -8,8 +8,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
+import android.view.WindowMetrics
 import android.widget.RemoteViews
+import androidx.core.graphics.scale
 import java.net.URL
+import kotlin.math.max
+import kotlin.math.roundToInt
 
 
 /**
@@ -49,7 +53,7 @@ private class UpdateWidgetTask(
 ) : AsyncTask<String, Integer, Bitmap>() {
 
     private val MAX_RETRIES : Int = 10
-    private val SAMPLE_SIZE_REDUCER : Int = 2
+    private val MAX_BITMAP_SIZE : Double = 18000000.0
 
     override fun doInBackground(vararg addressOrAssets: String?): Bitmap? {
         val eligibleImages = PoolPm.getNftUrls(addressOrAssets[0]!!)
@@ -62,11 +66,7 @@ private class UpdateWidgetTask(
             try {
                 // TODO: If an array support (on-chain), parse SVG (switch on case using when)
                 val imageUrl = URL(PoolPm.convertedToWeb(selectedImage.toString()))
-                return BitmapFactory.decodeStream(
-                    imageUrl.openConnection().getInputStream(),
-                    null,
-                    getBitmapOptions()
-                )
+                return BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
             } catch (e: Exception) {
                 // Ignore and continue
             }
@@ -74,19 +74,22 @@ private class UpdateWidgetTask(
         return null
     }
 
-    private fun getBitmapOptions() : BitmapFactory.Options {
-        val bitmapOptions = BitmapFactory.Options()
-        bitmapOptions.inSampleSize = SAMPLE_SIZE_REDUCER
-        return bitmapOptions
-    }
-
     override fun onPostExecute(image: Bitmap?) {
         if (image == null) {
             return
         }
 
+        val scaledImage : Bitmap
+        if (image.byteCount > MAX_BITMAP_SIZE) {
+            val scale = MAX_BITMAP_SIZE / image.byteCount
+            scaledImage = Bitmap.createScaledBitmap(image, (scale * image.width).roundToInt(), (scale * image.height).roundToInt(), true)
+            image.recycle()
+        } else {
+            scaledImage = image
+        }
+
         val views = RemoteViews(context.packageName, R.layout.nft_viewer_widget)
-        views.setImageViewBitmap(R.id.imageView, image)
+        views.setImageViewBitmap(R.id.imageView, scaledImage)
 
         val widgetIds = IntArray(1)
         widgetIds[0] = appWidgetId
