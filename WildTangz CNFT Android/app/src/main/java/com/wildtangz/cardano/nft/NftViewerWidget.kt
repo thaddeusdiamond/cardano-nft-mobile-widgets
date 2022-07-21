@@ -7,12 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.os.AsyncTask
-import android.view.WindowMetrics
+import android.util.Base64
 import android.widget.RemoteViews
-import androidx.core.graphics.scale
+import com.caverock.androidsvg.SVG
+import org.json.JSONArray
 import java.net.URL
-import kotlin.math.max
 import kotlin.math.roundToInt
 
 
@@ -54,6 +55,9 @@ private class UpdateWidgetTask(
 
     private val MAX_RETRIES : Int = 10
     private val MAX_BITMAP_SIZE : Double = 18000000.0
+    private val MAX_WIDTH : Int = 1800
+    private val MAX_HEIGHT : Int = 1800
+    private val BASE64_ENCODED_PNG : String = "data:image/png;base64"
 
     override fun doInBackground(vararg addressOrAssets: String?): Bitmap? {
         val eligibleImages = PoolPm.getNftUrls(addressOrAssets[0]!!)
@@ -65,11 +69,44 @@ private class UpdateWidgetTask(
 
             try {
                 // TODO: If an array support (on-chain), parse SVG (switch on case using when)
-                val imageUrl = URL(PoolPm.convertedToWeb(selectedImage.toString()))
-                return BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
+                return when (selectedImage.first) {
+                    "image/svg+xml" -> processSvg(selectedImage.second)
+                    else -> processImage(selectedImage.second)
+                }
             } catch (e: Exception) {
                 // Ignore and continue
             }
+        }
+        return null
+    }
+
+    private fun processSvg(selectedImage: Any) : Bitmap {
+        val imageBody = URL(PoolPm.convertedToWeb(selectedImage.toString())).readText()
+        val svg = SVG.getFromString(imageBody)
+        val bitmap = Bitmap.createBitmap(MAX_WIDTH, MAX_HEIGHT, Bitmap.Config.ARGB_8888)
+        val bmCanvas = Canvas(bitmap)
+        bmCanvas.drawRGB(255, 255, 255) // Clear background to white
+        svg.renderToCanvas(bmCanvas)
+        return bitmap
+    }
+
+    private fun processImage(selectedImage: Any) : Bitmap? {
+        if (selectedImage is JSONArray) {
+            val rawImage = StringBuilder()
+            for (index in 0 until selectedImage.length()) {
+                rawImage.append(selectedImage.get(index))
+            }
+            return parseStringToBitmap(rawImage.toString())
+        } else {
+            val imageUrl = URL(PoolPm.convertedToWeb(selectedImage.toString()))
+            return BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
+        }
+    }
+
+    private fun parseStringToBitmap(rawImage: String) : Bitmap? {
+        if (rawImage.startsWith(BASE64_ENCODED_PNG)) {
+            val decodedRawImage : ByteArray = Base64.decode(rawImage.substring(BASE64_ENCODED_PNG.length + 1), Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(decodedRawImage, 0, decodedRawImage.size)
         }
         return null
     }

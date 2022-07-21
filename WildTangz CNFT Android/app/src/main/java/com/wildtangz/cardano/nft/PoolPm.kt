@@ -75,7 +75,7 @@ class PoolPm {
         }
 
         @JvmStatic
-        fun getNftUrls(addressOrAsset: String): List<Any> {
+        fun getNftUrls(addressOrAsset: String): List<Pair<String, Any>> {
             val tokens = when (addressOrAsset.startsWith(ASSET_PREFIX)) {
                 true -> getAssetToken(addressOrAsset)
                 false -> getAddressTokens(addressOrAsset)
@@ -83,14 +83,14 @@ class PoolPm {
             return getAllNftImageUrls(tokens)
         }
 
-        private fun getAllNftImageUrls(tokens: JSONArray): List<Any> {
-            val eligibleImages = mutableListOf<Any>()
+        private fun getAllNftImageUrls(tokens: JSONArray): List<Pair<String, Any>> {
+            val eligibleImages = mutableListOf<Pair<String, Any>>()
             for (index in 0 until tokens.length()) {
                 val token = tokens.getJSONObject(index)
                 if (token.getInt("quantity") == 1 && token.has("metadata")) {
                     val tokenMetadata = token.getJSONObject("metadata")
                     if (tokenMetadata.has("image")) {
-                        eligibleImages.add(tokenMetadata.get("image"))
+                        eligibleImages.add(Pair(tokenMetadata.getString("mediaType"), tokenMetadata.get("image")))
                     }
                 }
             }
