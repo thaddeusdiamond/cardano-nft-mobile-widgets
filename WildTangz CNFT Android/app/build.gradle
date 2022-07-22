@@ -10,8 +10,8 @@ android {
         applicationId "com.wildtangz.cardano.nft"
         minSdk 31
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 12
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

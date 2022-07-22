@@ -90,7 +90,8 @@ class PoolPm {
                 if (token.getInt("quantity") == 1 && token.has("metadata")) {
                     val tokenMetadata = token.getJSONObject("metadata")
                     if (tokenMetadata.has("image")) {
-                        eligibleImages.add(Pair(tokenMetadata.getString("mediaType"), tokenMetadata.get("image")))
+                        val mediaType = if (tokenMetadata.has("mediaType")) tokenMetadata.getString("mediaType") else ""
+                        eligibleImages.add(Pair(mediaType, tokenMetadata.get("image")))
                     }
                 }
             }
