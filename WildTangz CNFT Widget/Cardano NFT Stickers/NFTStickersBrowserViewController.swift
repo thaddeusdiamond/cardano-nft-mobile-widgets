@@ -32,7 +32,7 @@ class NFTStickersBrowserViewController : MSStickerBrowserViewController {
     
     private func createSticker(asset: String) -> MSSticker? {
         do {
-            if let imageData : Data = PoolPm.getNftFromAddrString(addressOrAsset: asset) {
+            if let imageData : Data = PoolPm.getNftFromAddrString(addressOrAsset: asset)?.imageData {
                 let documentDirPath : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
                 let stickerFile : URL = documentDirPath.appendingPathComponent(asset)
                 try imageData.write(to: stickerFile)

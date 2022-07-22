@@ -25,14 +25,14 @@ struct PoolPm {
     static let IPFS_V2 : String = "bafy"
     static let MAX_LOAD_ATTEMPTS : Int = 5
     
-    static func getNftFromAddrString(addressOrAsset: String) -> Data? {
+    static func getNftFromAddrString(addressOrAsset: String) -> NftInfo? {
         if addressOrAsset.starts(with: PoolPm.ASSET_PREFIX) {
             return getAssetData(assetId: addressOrAsset)
         }
         return getRandomNft(address: addressOrAsset)
     }
     
-    static private func getAssetData(assetId: String) -> Data? {
+    static private func getAssetData(assetId: String) -> NftInfo? {
         do {
             let token : JSON = try getAsJson(url: "\(PoolPm.POOLPM_ASSET_API)/\(assetId)")
             if isNft(token: token) {
@@ -54,25 +54,26 @@ struct PoolPm {
         return token["quantity"].intValue == 1
     }
     
-    static private func getNftImage(token: JSON) -> Data? {
+    static private func getNftImage(token: JSON) -> NftInfo? {
         let imageJson = token["metadata"]["image"]
+        let mediaType = token["metadata"]["mediaType"].stringValue
         if let imageUrl = imageJson.string {
             let webUrl = convertedToWeb(imageUrl: imageUrl)
             os_log("%s", log: PoolPm.LOGGER, type: .info, webUrl)
-            return try? Data(contentsOf: URL(string: webUrl)!)
+            return NftInfo(mediaType: mediaType, imageUrl: URL(string: webUrl))
         } else if let imageDataArr = imageJson.array {
             let imageDataConcat : String = imageDataArr.map({ (subData : JSON) in subData.stringValue }).reduce("", +)
             let imageDataInlineStart : String.Index = imageDataConcat.firstIndex(of: ",")!
             let imageDataInline = String(imageDataConcat[imageDataConcat.index(imageDataInlineStart, offsetBy: 1)...])
             if imageDataConcat.range(of: "base64,") != nil {
-                return Data(base64Encoded: imageDataInline)
+                return NftInfo(mediaType: mediaType, imageData: Data(base64Encoded: imageDataInline))
             }
-            return Data(imageDataInline.utf8)
+            return NftInfo(mediaType: mediaType, imageData: Data(imageDataInline.utf8))
         }
         return nil
     }
     
-    static private func getRandomNft(address: String) -> Data? {
+    static private func getRandomNft(address: String) -> NftInfo? {
         do {
             let metadata : JSON = try getAsJson(url: "\(PoolPm.POOLPM_WALLET_API)/\(address)")
             os_log("%s", log: PoolPm.LOGGER, type: .debug, metadata.stringValue)

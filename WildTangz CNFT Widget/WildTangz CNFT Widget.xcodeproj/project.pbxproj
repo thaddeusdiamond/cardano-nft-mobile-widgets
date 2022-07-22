@@ -12,6 +12,11 @@
 		E12F3BF3288673F100675B9A /* PoolPm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E505DB287F7FCC00796263 /* PoolPm.swift */; };
 		E12F3BF42886752400675B9A /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D150942885ED9C007E22D8 /* AppConstants.swift */; };
 		E12F3BF62886754100675B9A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E12F3BF52886754100675B9A /* SwiftyJSON */; };
+		E14C0CA5288A29B3006D6B68 /* NftInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14C0CA4288A29B3006D6B68 /* NftInfo.swift */; };
+		E14C0CA6288A29B8006D6B68 /* NftInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14C0CA4288A29B3006D6B68 /* NftInfo.swift */; };
+		E14C0CA7288A29B9006D6B68 /* NftInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14C0CA4288A29B3006D6B68 /* NftInfo.swift */; };
+		E14C0CA9288A3415006D6B68 /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = E14C0CA8288A3415006D6B68 /* SVGView */; };
+		E14C0CAB288A343B006D6B68 /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = E14C0CAA288A343B006D6B68 /* SVGView */; };
 		E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334D287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift */; };
 		E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B334F287DE34C00FF14C2 /* ContentView.swift */; };
 		E17B3352287DE34F00FF14C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17B3351287DE34F00FF14C2 /* Assets.xcassets */; };
@@ -93,6 +98,7 @@
 /* Begin PBXFileReference section */
 		E12E1DB52885ACDB00E7CE73 /* Cardano NFT StickersRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cardano NFT StickersRelease.entitlements"; sourceTree = "<group>"; };
 		E12E1DB62885B05F00E7CE73 /* NFTStickersBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTStickersBrowserViewController.swift; sourceTree = "<group>"; };
+		E14C0CA4288A29B3006D6B68 /* NftInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftInfo.swift; sourceTree = "<group>"; };
 		E15014ED287EAD420076D8A6 /* WildTangz CNFT Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WildTangz CNFT Widget.entitlements"; sourceTree = "<group>"; };
 		E15014EE287EAD7A0076D8A6 /* iOS WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "iOS WidgetExtension.entitlements"; sourceTree = "<group>"; };
 		E17B334A287DE34C00FF14C2 /* Cardano NFTs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cardano NFTs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14C0CA9288A3415006D6B68 /* SVGView in Frameworks */,
 				E1E7CF432885E93D004D4C57 /* Toast in Frameworks */,
 				E1E7CF402885E92E004D4C57 /* SwiftyJSON in Frameworks */,
 			);
@@ -164,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14C0CAB288A343B006D6B68 /* SVGView in Frameworks */,
 				E12F3BF62886754100675B9A /* SwiftyJSON in Frameworks */,
 				E1A948D32884BA59000E7CDF /* Messages.framework in Frameworks */,
 			);
@@ -211,6 +219,7 @@
 				E19D0080287F44B70067CB8F /* ColorExtension.swift */,
 				E1E505DB287F7FCC00796263 /* PoolPm.swift */,
 				E1D150942885ED9C007E22D8 /* AppConstants.swift */,
+				E14C0CA4288A29B3006D6B68 /* NftInfo.swift */,
 			);
 			path = "WildTangz CNFT Widget";
 			sourceTree = "<group>";
@@ -298,6 +307,7 @@
 			packageProductDependencies = (
 				E1E7CF3F2885E92E004D4C57 /* SwiftyJSON */,
 				E1E7CF422885E93D004D4C57 /* Toast */,
+				E14C0CA8288A3415006D6B68 /* SVGView */,
 			);
 			productName = "WildTangz CNFT Widget";
 			productReference = E17B334A287DE34C00FF14C2 /* Cardano NFTs.app */;
@@ -376,6 +386,7 @@
 			name = "Cardano NFT Stickers";
 			packageProductDependencies = (
 				E12F3BF52886754100675B9A /* SwiftyJSON */,
+				E14C0CAA288A343B006D6B68 /* SVGView */,
 			);
 			productName = "Cardano NFT Stickers";
 			productReference = E1A948D12884BA59000E7CDF /* Cardano NFT Stickers.appex */;
@@ -492,6 +503,7 @@
 				E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */,
 				E19D0081287F44B70067CB8F /* ColorExtension.swift in Sources */,
 				E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */,
+				E14C0CA5288A29B3006D6B68 /* NftInfo.swift in Sources */,
 				E17B335A287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,6 +533,7 @@
 				E17B338D287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */,
 				E1E505DD287F7FCC00796263 /* PoolPm.swift in Sources */,
 				E17B3388287DE57500FF14C2 /* iOS_Widget.swift in Sources */,
+				E14C0CA6288A29B8006D6B68 /* NftInfo.swift in Sources */,
 				E1D150962885EDD7007E22D8 /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,6 +545,7 @@
 				E12F3BF3288673F100675B9A /* PoolPm.swift in Sources */,
 				E12E1DB72885B05F00E7CE73 /* NFTStickersBrowserViewController.swift in Sources */,
 				E1A948D62884BA59000E7CDF /* MessagesViewController.swift in Sources */,
+				E14C0CA7288A29B9006D6B68 /* NftInfo.swift in Sources */,
 				E12F3BF42886752400675B9A /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1089,6 +1103,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E1E7CF3E2885E92E004D4C57 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		E14C0CA8288A3415006D6B68 /* SVGView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E12F3BF0288662E900675B9A /* XCRemoteSwiftPackageReference "SVGView" */;
+			productName = SVGView;
+		};
+		E14C0CAA288A343B006D6B68 /* SVGView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E12F3BF0288662E900675B9A /* XCRemoteSwiftPackageReference "SVGView" */;
+			productName = SVGView;
 		};
 		E19D0079287F40060067CB8F /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

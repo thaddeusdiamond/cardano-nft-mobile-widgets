@@ -10,13 +10,13 @@ import WidgetKit
 import SwiftUI
 import Intents
 import SwiftyJSON
-import SVGView
 
 struct RandomNftEntry: TimelineEntry {
         
     let date: Date
     let configuration: ConfigurationIntent
-    let imageData: Data?
+    let nftInfo: NftInfo?
+    
 }
 
 struct RandomNftProvider: IntentTimelineProvider {
@@ -24,12 +24,12 @@ struct RandomNftProvider: IntentTimelineProvider {
     static let LOGGER = OSLog(subsystem: AppConstants.CONFIG_GROUP_NAME, category: "main")
     
     func placeholder(in context: Context) -> RandomNftEntry {
-        return RandomNftEntry(date: Date(), configuration: ConfigurationIntent(), imageData: nil)
+        return RandomNftEntry(date: Date(), configuration: ConfigurationIntent(), nftInfo: NftInfo())
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (RandomNftEntry) -> ()) {
         if context.isPreview {
-            let entry = RandomNftEntry(date: Date(), configuration: configuration, imageData: nil)
+            let entry = RandomNftEntry(date: Date(), configuration: configuration, nftInfo: NftInfo())
             completion(entry)   
         }
     }
@@ -40,9 +40,9 @@ struct RandomNftProvider: IntentTimelineProvider {
         }
         
         let currentDate : Date = Date()
-        let imageData : Data? = PoolPm.getNftFromAddrString(addressOrAsset: address)
+        let nftInfo : NftInfo? = PoolPm.getNftFromAddrString(addressOrAsset: address)
         let entries: [RandomNftEntry] = [
-            RandomNftEntry(date: currentDate, configuration: configuration, imageData: imageData)
+            RandomNftEntry(date: currentDate, configuration: configuration, nftInfo: nftInfo)
         ]
 
         let reloadDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
@@ -61,20 +61,21 @@ struct iOS_WidgetEntryView : View {
     var body: some View {
         autoreleasepool {
             ZStack {
-                let imageData : Data? = entry.imageData
-                if imageData != nil, let uiImage : UIImage = UIImage(data: imageData!) {
-                    Color(.black)
-                    Image(uiImage: uiImage).resizable().scaledToFit()
-                } else if imageData != nil, let xml = DOMParser.parse(data: imageData!) {
-                    Color(.black)
-                    SVGView(xml: xml)
+                if entry.nftInfo == nil || entry.nftInfo?.mediaType == nil {
+                    Image(uiImage: UIImage(named: iOS_WidgetEntryView.PLACEHOLDER_IMG_NAME)!) .resizable().scaledToFit()
                 } else {
-                    let defaultImage = UIImage(named: iOS_WidgetEntryView.PLACEHOLDER_IMG_NAME)!
-                    Image(uiImage: defaultImage).resizable().scaledToFit()
+                    Color(.black)
+                    switch entry.nftInfo?.mediaType {
+                    case NftInfo.SVG_IMAGE_TYPE:
+                        entry.nftInfo?.asSVGNode()?.toSwiftUI()
+                    default:
+                        Image(uiImage: (entry.nftInfo?.asUIImage())!).resizable().scaledToFit()
+                    }
                 }
             }
         }
     }
+    
 }
 
 @main
