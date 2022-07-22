@@ -52,6 +52,9 @@ struct ContentView: View {
                                 .cornerRadius(8)
                                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(darkAwareBackground, lineWidth: 1))
                             Button {
+                                if self.newAddress.isEmpty {
+                                    return
+                                }
                                 guard hasRequiredAssets(address: self.newAddress, policy: ContentView.REQUIRED_POLICY, minRequired: ContentView.REQUIRED_NUM) else {
                                     Toast.text(
                                         "Address needs at least \(ContentView.REQUIRED_NUM) \(ContentView.REQUIRED_NAME) NFT(s)",

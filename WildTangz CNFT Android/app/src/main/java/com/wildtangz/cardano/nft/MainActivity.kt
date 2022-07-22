@@ -141,8 +141,16 @@ fun CardanoLookup(
             text = "Update",
             enabled = enablingState,
             onClick = {
-                val task = AuthorizeConfigTask(appContext, sharedPreferences, selectionSubkey, savingState, enablingState)
-                task.execute(temporaryInput)
+                if (!temporaryInput.value.isEmpty()) {
+                    val task = AuthorizeConfigTask(
+                        appContext,
+                        sharedPreferences,
+                        selectionSubkey,
+                        savingState,
+                        enablingState
+                    )
+                    task.execute(temporaryInput)
+                }
             }
         )
     }
