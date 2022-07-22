@@ -54,9 +54,9 @@ private class UpdateWidgetTask(
 ) : AsyncTask<String, Integer, Bitmap>() {
 
     private val MAX_RETRIES : Int = 10
-    private val MAX_BITMAP_SIZE : Double = 18000000.0
-    private val MAX_WIDTH : Int = 1800
-    private val MAX_HEIGHT : Int = 1800
+    private val MAX_BITMAP_SIZE : Double = 10000000.0
+    private val MAX_WIDTH : Int = 1000
+    private val MAX_HEIGHT : Int = 1000
     private val BASE64_ENCODED_PNG : String = "data:image/png;base64"
 
     override fun doInBackground(vararg addressOrAssets: String?): Bitmap? {
@@ -68,10 +68,12 @@ private class UpdateWidgetTask(
             }
 
             try {
-                // TODO: If an array support (on-chain), parse SVG (switch on case using when)
-                return when (selectedImage.first) {
+                val image = when (selectedImage.first) {
                     "image/svg+xml" -> processSvg(selectedImage.second)
                     else -> processImage(selectedImage.second)
+                }
+                if (image != null) {
+                    return image
                 }
             } catch (e: Exception) {
                 // Ignore and continue
