@@ -23,6 +23,9 @@ struct RandomNftProvider: IntentTimelineProvider {
     
     static let LOGGER = OSLog(subsystem: AppConstants.CONFIG_GROUP_NAME, category: "main")
     
+    static let MAX_LOAD_ATTEMPTS = 5
+    static let BACKOFF : UInt32 = 2
+    
     func placeholder(in context: Context) -> RandomNftEntry {
         return RandomNftEntry(date: Date(), configuration: ConfigurationIntent(), nftInfo: NftInfo())
     }
@@ -40,14 +43,20 @@ struct RandomNftProvider: IntentTimelineProvider {
         }
         
         let currentDate : Date = Date()
-        let nftInfo : NftInfo? = PoolPm.getNftFromAddrString(addressOrAsset: address)
-        let entries: [RandomNftEntry] = [
-            RandomNftEntry(date: currentDate, configuration: configuration, nftInfo: nftInfo)
-        ]
+        for _ in 1...RandomNftProvider.MAX_LOAD_ATTEMPTS {
+            do {
+                let nftInfo : NftInfo? = PoolPm.getNftFromAddrString(addressOrAsset: address)
+                let entries: [RandomNftEntry] = [
+                    RandomNftEntry(date: currentDate, configuration: configuration, nftInfo: nftInfo)
+                ]
 
-        let reloadDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
-        let timeline = Timeline(entries: entries, policy: .after(reloadDate))
-        completion(timeline)
+                let reloadDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
+                let timeline = Timeline(entries: entries, policy: .after(reloadDate))
+                return completion(timeline)
+            } catch {
+                sleep(RandomNftProvider.BACKOFF)
+            }
+        } 
     }
     
 }
@@ -62,7 +71,7 @@ struct iOS_WidgetEntryView : View {
         autoreleasepool {
             ZStack {
                 if entry.nftInfo == nil || entry.nftInfo?.mediaType == nil {
-                    Image(uiImage: UIImage(named: iOS_WidgetEntryView.PLACEHOLDER_IMG_NAME)!) .resizable().scaledToFit()
+                    Image(uiImage: UIImage(named: iOS_WidgetEntryView.PLACEHOLDER_IMG_NAME)!).resizable().scaledToFit()
                 } else {
                     Color(.black)
                     switch entry.nftInfo?.mediaType {

@@ -14,7 +14,7 @@ class NftInfo {
     static let SVG_IMAGE_TYPE = "image/svg+xml"
     static let SVG_SETTINGS = SVGSettings(ppi: 48)
     
-    static let MAX_PIXEL_SIZE = 400
+    static let MAX_PIXEL_SIZE = 420
     static let DOWNSAMPLE_OPTS: [NSString: Any]  = [
         kCGImageSourceCreateThumbnailFromImageAlways: true,
         kCGImageSourceCreateThumbnailWithTransform: true,

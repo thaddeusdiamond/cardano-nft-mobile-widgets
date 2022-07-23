@@ -23,7 +23,6 @@ struct PoolPm {
     static let IPFS_PROTOCOL : String = "ipfs://"
     static let IPFS_V1_START : String.Element = "Q"
     static let IPFS_V2 : String = "bafy"
-    static let MAX_LOAD_ATTEMPTS : Int = 5
     
     static func getNftFromAddrString(addressOrAsset: String) -> NftInfo? {
         if addressOrAsset.starts(with: PoolPm.ASSET_PREFIX) {
@@ -85,12 +84,10 @@ struct PoolPm {
                 }
             }
             
-            for _ in 1...PoolPm.MAX_LOAD_ATTEMPTS {
-                if let randomNft = tokens.randomElement() {
-                    os_log("%s", log: PoolPm.LOGGER, type: .debug, randomNft.rawString()!)
-                    if let nftImage = getNftImage(token: randomNft) {
-                        return nftImage
-                    }
+            if let randomNft = tokens.randomElement() {
+                os_log("%s", log: PoolPm.LOGGER, type: .debug, randomNft.rawString()!)
+                if let nftImage = getNftImage(token: randomNft) {
+                    return nftImage
                 }
             }
         } catch {
@@ -100,7 +97,6 @@ struct PoolPm {
     }
     
     static private func convertedToWeb(imageUrl: String) -> String {
-        // TODO: Support on-chain and ghostwatch
         if imageUrl.starts(with: PoolPm.IPFS_PROTOCOL), let cidStart = imageUrl.firstIndex(of: PoolPm.IPFS_V1_START) {
             let cid = imageUrl[cidStart..<imageUrl.endIndex]
             return "\(PoolPm.IPFS_GATEWAY)/\(cid)"

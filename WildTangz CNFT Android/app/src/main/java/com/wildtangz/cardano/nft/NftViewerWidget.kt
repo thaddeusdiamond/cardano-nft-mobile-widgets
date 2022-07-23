@@ -54,7 +54,7 @@ private class UpdateWidgetTask(
 ) : AsyncTask<String, Integer, Bitmap>() {
 
     private val MAX_RETRIES : Int = 10
-    private val MAX_BITMAP_SIZE : Double = 10000000.0
+    private val MAX_BITMAP_SIZE : Double = 7500000.0
     private val MAX_WIDTH : Int = 1000
     private val MAX_HEIGHT : Int = 1000
     private val BASE64_ENCODED_PNG : String = "data:image/png;base64"

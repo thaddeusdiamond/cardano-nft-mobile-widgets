@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.wildtangz.cardano.nft"
-    android:versionCode="13"
-    android:versionName="1.3">
+    android:versionCode="141"
+    android:versionName="1.4">
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WildTangzCardanoNFT"
-        tools:targetApi="31">
+        tools:targetApi="32">
         <receiver
             android:name=".NftViewerWidget"
             android:exported="false">
