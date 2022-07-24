@@ -71,6 +71,7 @@ struct iOS_WidgetEntryView : View {
         autoreleasepool {
             ZStack {
                 if entry.nftInfo == nil || entry.nftInfo?.mediaType == nil {
+                    Color("WidgetImageBG")
                     Image(uiImage: UIImage(named: iOS_WidgetEntryView.PLACEHOLDER_IMG_NAME)!).resizable().scaledToFit()
                 } else {
                     Color(.black)

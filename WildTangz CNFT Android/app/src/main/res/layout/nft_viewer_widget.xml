@@ -1,14 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.WildTangzCardanoNFT.AppWidget.Container"
     android:id="@+id/relativeLayout"
+    style="@style/Widget.WildTangzCardanoNFT.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:theme="@style/Theme.WildTangzCardanoNFT.AppWidgetContainer">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/example_appwidget_preview" />
+        android:contentDescription="@string/app_widget_description"
+        android:padding="@dimen/widget_margin"
+        android:src="@mipmap/example_appwidget_preview_foreground" />
 </RelativeLayout>
