@@ -40,6 +40,13 @@
 		E1A948D92884BA59000E7CDF /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A948D72884BA59000E7CDF /* MainInterface.storyboard */; };
 		E1A948DB2884BA5B000E7CDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1A948DA2884BA5B000E7CDF /* Assets.xcassets */; };
 		E1A948DF2884BA5B000E7CDF /* Cardano NFT Stickers.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E1A948D12884BA59000E7CDF /* Cardano NFT Stickers.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E1B5165A288DA3D200E87FF0 /* RandomNftProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B51656288DA30700E87FF0 /* RandomNftProvider.swift */; };
+		E1B5165B288DA3D700E87FF0 /* ApewatchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B51658288DA31400E87FF0 /* ApewatchProvider.swift */; };
+		E1B51660288DACDC00E87FF0 /* ApewatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5165F288DACDC00E87FF0 /* ApewatchApp.swift */; };
+		E1B51661288DACDC00E87FF0 /* ApewatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5165F288DACDC00E87FF0 /* ApewatchApp.swift */; };
+		E1B51663288DAD0100E87FF0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B51662288DAD0100E87FF0 /* Utils.swift */; };
+		E1B51664288DAD0100E87FF0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B51662288DAD0100E87FF0 /* Utils.swift */; };
+		E1B51665288DB61700E87FF0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B51662288DAD0100E87FF0 /* Utils.swift */; };
 		E1D150952885ED9C007E22D8 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D150942885ED9C007E22D8 /* AppConstants.swift */; };
 		E1D150962885EDD7007E22D8 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D150942885ED9C007E22D8 /* AppConstants.swift */; };
 		E1E505DC287F7FCC00796263 /* PoolPm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E505DB287F7FCC00796263 /* PoolPm.swift */; };
@@ -128,6 +135,10 @@
 		E1A948D82884BA59000E7CDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E1A948DA2884BA5B000E7CDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1A948DC2884BA5B000E7CDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1B51656288DA30700E87FF0 /* RandomNftProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNftProvider.swift; sourceTree = "<group>"; };
+		E1B51658288DA31400E87FF0 /* ApewatchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApewatchProvider.swift; sourceTree = "<group>"; };
+		E1B5165F288DACDC00E87FF0 /* ApewatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApewatchApp.swift; sourceTree = "<group>"; };
+		E1B51662288DAD0100E87FF0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E1D150942885ED9C007E22D8 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		E1E505DB287F7FCC00796263 /* PoolPm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolPm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,6 +233,8 @@
 				E1E505DB287F7FCC00796263 /* PoolPm.swift */,
 				E1D150942885ED9C007E22D8 /* AppConstants.swift */,
 				E14C0CA4288A29B3006D6B68 /* NftInfo.swift */,
+				E1B5165F288DACDC00E87FF0 /* ApewatchApp.swift */,
+				E1B51662288DAD0100E87FF0 /* Utils.swift */,
 			);
 			path = "WildTangz CNFT Widget";
 			sourceTree = "<group>";
@@ -268,6 +281,8 @@
 				E17B3389287DE57500FF14C2 /* iOS_Widget.intentdefinition */,
 				E17B338A287DE57700FF14C2 /* Assets.xcassets */,
 				E17B338C287DE57700FF14C2 /* Info.plist */,
+				E1B51656288DA30700E87FF0 /* RandomNftProvider.swift */,
+				E1B51658288DA31400E87FF0 /* ApewatchProvider.swift */,
 			);
 			path = "iOS Widget";
 			sourceTree = "<group>";
@@ -505,7 +520,9 @@
 				E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */,
 				E19D0081287F44B70067CB8F /* ColorExtension.swift in Sources */,
 				E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */,
+				E1B51663288DAD0100E87FF0 /* Utils.swift in Sources */,
 				E14C0CA5288A29B3006D6B68 /* NftInfo.swift in Sources */,
+				E1B51660288DACDC00E87FF0 /* ApewatchApp.swift in Sources */,
 				E17B335A287DE34F00FF14C2 /* WildTangz_CNFT_Widget.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,11 +549,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E19D0082287F44FB0067CB8F /* ColorExtension.swift in Sources */,
+				E1B5165B288DA3D700E87FF0 /* ApewatchProvider.swift in Sources */,
 				E17B338D287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */,
 				E1E505DD287F7FCC00796263 /* PoolPm.swift in Sources */,
 				E17B3388287DE57500FF14C2 /* iOS_Widget.swift in Sources */,
+				E1B51664288DAD0100E87FF0 /* Utils.swift in Sources */,
 				E14C0CA6288A29B8006D6B68 /* NftInfo.swift in Sources */,
 				E1D150962885EDD7007E22D8 /* AppConstants.swift in Sources */,
+				E1B5165A288DA3D200E87FF0 /* RandomNftProvider.swift in Sources */,
+				E1B51661288DACDC00E87FF0 /* ApewatchApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +570,7 @@
 				E1A948D62884BA59000E7CDF /* MessagesViewController.swift in Sources */,
 				E14C0CA7288A29B9006D6B68 /* NftInfo.swift in Sources */,
 				E12F3BF42886752400675B9A /* AppConstants.swift in Sources */,
+				E1B51665288DB61700E87FF0 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,7 +767,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wildtangz.cardanonfts;
 				PRODUCT_NAME = "Cardano NFTs";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -782,7 +804,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wildtangz.cardanonfts;
 				PRODUCT_NAME = "Cardano NFTs";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -899,7 +921,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.iOS-WidgetExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -929,7 +951,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.iOS-WidgetExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -957,7 +979,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.Cardano-NFT-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -986,7 +1008,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.Cardano-NFT-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -13,24 +13,10 @@ import Toast
 struct ContentView: View {
     static let BG_COLOR: UInt = 0x3369D0
     
-    static let REQUIRED_POLICY : String = "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b"
-    static let REQUIRED_NAME : String = "Wild Tangz"
-    static let REQUIRED_NUM : Int = 1
-    
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     @State var newAddress: String = ""
     @State var selectedAddress: String = (UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.string(forKey: AppConstants.ADDR_KEY) ?? "")
-    
-    func hasRequiredAssets(address: String, policy: String, minRequired: Int) -> Bool {
-        var totalCount = 0
-        for tokenPolicy in PoolPm.getTokenPolicies(addressOrAsset: address) {
-            if tokenPolicy == policy {
-                totalCount += 1
-            }
-        }
-        return totalCount >= minRequired
-    }
         
     var body: some View {
         ZStack {
@@ -53,7 +39,7 @@ struct ContentView: View {
                                 .foregroundColor(darkAwareForeground)
                             let instructions : [String] = [
                                 "Enter an address, handle ($), or single asset ID (asset1...) then click 'Update'. The selection will display under 'Current Selection'",
-                                "Exit app, perform a 'long press' on the home screen, then hit '+' in the top-left corner to add a widget to the home screen",
+                                "Exit app, perform a 'long press' on the home screen, then hit '+' in the top-left corner to add a widget to the home screen (NFT viewer and portfolio view available)",
                                 "Wait patiently as an NFT loads into the widget viewer (1-2 minutes).  The widget will refresh on its own every 15 minutes."
                             ]
                             VStack {
@@ -75,16 +61,17 @@ struct ContentView: View {
                                 if self.newAddress.isEmpty {
                                     return
                                 }
-                                guard hasRequiredAssets(address: self.newAddress, policy: ContentView.REQUIRED_POLICY, minRequired: ContentView.REQUIRED_NUM) else {
+                                let numRequiredAssets = PoolPm.numRequiredAssets(address: self.newAddress, policy: AppAuthorization.REQUIRED_POLICY)
+                                guard numRequiredAssets >= AppAuthorization.REQUIRED_FOR_VIEWER else {
                                     Toast.text(
-                                        "Address needs at least \(ContentView.REQUIRED_NUM) \(ContentView.REQUIRED_NAME) NFT(s)",
+                                        "Address needs at least \(AppAuthorization.REQUIRED_FOR_VIEWER) \(AppAuthorization.REQUIRED_NAME) NFT(s)",
                                         config: ToastConfiguration(displayTime: 20)
                                     ).show()
                                     return
                                 }
                                 self.selectedAddress = self.newAddress
                                 UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.set(self.selectedAddress, forKey: AppConstants.ADDR_KEY)
-                                WidgetCenter.shared.reloadTimelines(ofKind: AppConstants.CONFIG_GROUP_NAME)
+                                WidgetCenter.shared.reloadAllTimelines()
                                 self.newAddress = ""
                             } label: {
                                 Text("Update")

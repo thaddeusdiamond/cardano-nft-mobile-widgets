@@ -18,7 +18,15 @@ struct WildTangz_CNFT_WidgetApp: App {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                    WidgetCenter.shared.reloadTimelines(ofKind: AppConstants.CONFIG_GROUP_NAME)
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
+                .onOpenURL { url in
+                    guard url.scheme == AppConstants.WIDGET_DEEPLINK_SCHEME else { return }
+                    if (url.host == AppConstants.APEWATCH_PATH) {
+                        if let selection : String = UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.string(forKey: AppConstants.ADDR_KEY) {
+                            UIApplication.shared.open(URL(string: "https://apewatch.app/\(selection)")!)
+                        }
+                    }
                 }
         }
     }

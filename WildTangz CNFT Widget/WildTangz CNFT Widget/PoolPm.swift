@@ -33,7 +33,7 @@ struct PoolPm {
     
     static private func getAssetData(assetId: String) -> NftInfo? {
         do {
-            let token : JSON = try getAsJson(url: "\(PoolPm.POOLPM_ASSET_API)/\(assetId)")
+            let token : JSON = try getAsJson(url: PoolPm.getAssetUrlFor(assetId))
             if isNft(token: token) {
                 return getNftImage(token: token)
             }
@@ -41,12 +41,6 @@ struct PoolPm {
             // Some generic error occurred, return the default NFT
         }
         return nil
-    }
-    
-    static private func getAsJson(url: String) throws -> JSON {
-        let apiEndpoint : URL = URL(string: url)!
-        let metadataData : Data = try Data(contentsOf: apiEndpoint)
-        return try JSON(data: metadataData)
     }
     
     static private func isNft(token: JSON) -> Bool {
@@ -74,7 +68,7 @@ struct PoolPm {
     
     static private func getRandomNft(address: String) -> NftInfo? {
         do {
-            let metadata : JSON = try getAsJson(url: "\(PoolPm.POOLPM_WALLET_API)/\(address)")
+            let metadata : JSON = try getAsJson(url: PoolPm.getWalletUrlFor(address))
             os_log("%s", log: PoolPm.LOGGER, type: .debug, metadata.stringValue)
             
             var tokens : [JSON] = []
@@ -112,11 +106,11 @@ struct PoolPm {
     static func getTokenPolicies(addressOrAsset: String) -> [String] {
         do {
             if addressOrAsset.starts(with: PoolPm.ASSET_PREFIX) {
-                let poolInfo : JSON = try getAsJson(url: "\(PoolPm.POOLPM_ASSET_API)/\(addressOrAsset)")
+                let poolInfo : JSON = try getAsJson(url: PoolPm.getAssetUrlFor(addressOrAsset))
                 return getTokenPolicies(addressOrAsset: poolInfo["owner"].stringValue)
             }
 
-            let poolInfo : JSON = try getAsJson(url: "\(PoolPm.POOLPM_WALLET_API)/\(addressOrAsset)")
+            let poolInfo : JSON = try getAsJson(url: PoolPm.getWalletUrlFor(addressOrAsset))
             var policies : [String] = []
             for token in poolInfo["tokens"].arrayValue {
                 policies.append(token["policy"].stringValue)
@@ -125,6 +119,18 @@ struct PoolPm {
         } catch {
             return []
         }
+    }
+    
+    static func numRequiredAssets(address: String, policy: String) -> Int {
+        return PoolPm.getTokenPolicies(addressOrAsset: address).filter({ $0 == policy }).count
+    }
+    
+    static private func getAssetUrlFor(_ selection : String) -> String {
+        return "\(PoolPm.POOLPM_ASSET_API)/\(selection.lowercased())"
+    }
+    
+    static private func getWalletUrlFor(_ selection : String) -> String {
+        return "\(PoolPm.POOLPM_WALLET_API)/\(selection.lowercased())"
     }
     
 }

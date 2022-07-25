@@ -57,8 +57,18 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E17B337F287DE57500FF14C2"
+            BuildableName = "iOS WidgetExtension.appex"
+            BlueprintName = "iOS WidgetExtension"
+            ReferencedContainer = "container:WildTangz CNFT Widget.xcodeproj">
+         </BuildableReference>
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E17B3349287DE34C00FF14C2"
@@ -66,11 +76,11 @@
             BlueprintName = "WildTangz CNFT Widget"
             ReferencedContainer = "container:WildTangz CNFT Widget.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = ""
+            value = "RandomNftViewer,PortfolioViewer"
             isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
