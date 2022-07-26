@@ -28,6 +28,8 @@ struct ApewatchApp {
         "x-inertia-version": "096a8c34ea37cce3f200dba88000a3b0"
     ]
     
+    static let TRANSFERRED = "transferred"
+    
     static let COINGECKO_ADA_API : String = "https://api.coingecko.com/api/v3/simple/price?ids=cardano&vs_currencies=usd"
     
     static func getPortfolioValue(address: String) -> PortfolioInfo? {
@@ -50,6 +52,9 @@ struct ApewatchApp {
                 numProjects += 1
                 adaValueEstimate += nftCollection["value"].doubleValue
                 for nft : JSON in nftCollection["assets"].arrayValue {
+                    if (nft["status"].stringValue == ApewatchApp.TRANSFERRED) {
+                        continue
+                    }
                     numAssets += 1
                     if nft["quantity"].doubleValue == 1 {
                         adaFloorEstimate += nft["value"].doubleValue

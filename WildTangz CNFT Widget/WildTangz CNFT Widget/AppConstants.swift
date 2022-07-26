@@ -21,5 +21,5 @@ struct AppAuthorization {
     static let REQUIRED_POLICY : String = "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b"
     static let REQUIRED_NAME : String = "Wild Tangz"
     static let REQUIRED_FOR_VIEWER : Int = 1
-    static let REQUIRED_FOR_PORTFOLIO : Int = 4
+    static let REQUIRED_FOR_PORTFOLIO : Int = 5
 }
