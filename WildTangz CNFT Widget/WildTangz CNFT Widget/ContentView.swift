@@ -61,7 +61,7 @@ struct ContentView: View {
                                 if self.newAddress.isEmpty {
                                     return
                                 }
-                                let numRequiredAssets = PoolPm.numRequiredAssets(address: self.newAddress, policy: AppAuthorization.REQUIRED_POLICY)
+                                let numRequiredAssets = PoolPm.numRequiredAssets(addressOrAsset: self.newAddress, policy: AppAuthorization.REQUIRED_POLICY)
                                 guard numRequiredAssets >= AppAuthorization.REQUIRED_FOR_VIEWER else {
                                     Toast.text(
                                         "Address needs at least \(AppAuthorization.REQUIRED_FOR_VIEWER) \(AppAuthorization.REQUIRED_NAME) NFT(s)",

@@ -43,7 +43,7 @@ struct ApewatchProvider: IntentTimelineProvider {
         
         let currentDate : Date = Date()
         let portfolioInfo : PortfolioInfo? = ApewatchApp.getPortfolioValue(address: address)
-        let numRequiredAssets : Int = PoolPm.numRequiredAssets(address: address, policy: AppAuthorization.REQUIRED_POLICY)
+        let numRequiredAssets : Int = PoolPm.numRequiredAssets(addressOrAsset: address, policy: AppAuthorization.REQUIRED_POLICY)
         let entries: [ApewatchEntry] = [
             ApewatchEntry(
                 date: currentDate,

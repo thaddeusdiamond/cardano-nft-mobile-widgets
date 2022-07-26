@@ -9,12 +9,11 @@ import os
 import Foundation
 import SwiftyJSON
 
-struct PoolPm {
+class PoolPm {
     
     static let LOGGER = OSLog(subsystem: "group.wildtangz", category: "poolpm")
     
     static let POOLPM_BASE = "https://pool.pm"
-    static let POOLPM_WALLET_API = "\(POOLPM_BASE)/wallet"
     static let POOLPM_ASSET_API = "\(POOLPM_BASE)/asset"
 
     static let ASSET_PREFIX : String = "asset"
@@ -22,7 +21,9 @@ struct PoolPm {
     static let IPFS_GATEWAY : String = "https://infura-ipfs.io/ipfs"
     static let IPFS_PROTOCOL : String = "ipfs://"
     static let IPFS_V1_START : String.Element = "Q"
-    static let IPFS_V2 : String = "bafy"
+    static let IPFS_V2 : String = "baf"
+    
+    static let MAX_ATTEMPTS : Int = 3
     
     static func getNftFromAddrString(addressOrAsset: String) -> NftInfo? {
         if addressOrAsset.starts(with: PoolPm.ASSET_PREFIX) {
@@ -35,7 +36,7 @@ struct PoolPm {
         do {
             let token : JSON = try getAsJson(url: PoolPm.getAssetUrlFor(assetId))
             if isNft(token: token) {
-                return getNftImage(token: token)
+                return getNftImage(tokenMetadata: token["metadata"])
             }
         } catch {
             // Some generic error occurred, return the default NFT
@@ -47,9 +48,9 @@ struct PoolPm {
         return token["quantity"].intValue == 1
     }
     
-    static private func getNftImage(token: JSON) -> NftInfo? {
-        let imageJson = token["metadata"]["image"]
-        let mediaType = token["metadata"]["mediaType"].stringValue
+    static private func getNftImage(tokenMetadata: JSON) -> NftInfo? {
+        let imageJson = tokenMetadata["image"]
+        let mediaType = tokenMetadata["mediaType"].stringValue
         if let imageUrl = imageJson.string {
             let webUrl = convertedToWeb(imageUrl: imageUrl)
             os_log("%s", log: PoolPm.LOGGER, type: .info, webUrl)
@@ -67,25 +68,19 @@ struct PoolPm {
     }
     
     static private func getRandomNft(address: String) -> NftInfo? {
-        do {
-            let metadata : JSON = try getAsJson(url: PoolPm.getWalletUrlFor(address))
-            os_log("%s", log: PoolPm.LOGGER, type: .debug, metadata.stringValue)
-            
-            var tokens : [JSON] = []
-            for token in metadata["tokens"].arrayValue {
-                if isNft(token: token) {
-                    tokens.append(token)
-                }
+        let tokens = Blockfrost.getNfts(addressOrHandle: address)
+        for _ in 1...PoolPm.MAX_ATTEMPTS {
+            guard let randomToken = tokens.randomElement() else {
+                continue
             }
-            
-            if let randomNft = tokens.randomElement() {
-                os_log("%s", log: PoolPm.LOGGER, type: .debug, randomNft.rawString()!)
-                if let nftImage = getNftImage(token: randomNft) {
-                    return nftImage
+            os_log("%s", log: PoolPm.LOGGER, type: .debug, randomToken.stringValue)
+            let token : JSON = Blockfrost.getAssetInfo(randomToken["unit"].stringValue)
+            if let nftImage = getNftImage(tokenMetadata: token["onchain_metadata"]) {
+                if nftImage.svgNode == nil, nftImage.uiImage == nil {
+                    continue
                 }
+                return nftImage
             }
-        } catch {
-            // Some generic error occurred, return the default NFT
         }
         return nil
     }
@@ -103,34 +98,23 @@ struct PoolPm {
         return imageUrl
     }
     
-    static func getTokenPolicies(addressOrAsset: String) -> [String] {
+    static func numRequiredAssets(addressOrAsset: String, policy: String) -> Int {
         do {
             if addressOrAsset.starts(with: PoolPm.ASSET_PREFIX) {
                 let poolInfo : JSON = try getAsJson(url: PoolPm.getAssetUrlFor(addressOrAsset))
-                return getTokenPolicies(addressOrAsset: poolInfo["owner"].stringValue)
+                return numRequiredAssets(addressOrAsset: poolInfo["owner"].stringValue, policy: policy)
             }
-
-            let poolInfo : JSON = try getAsJson(url: PoolPm.getWalletUrlFor(addressOrAsset))
-            var policies : [String] = []
-            for token in poolInfo["tokens"].arrayValue {
-                policies.append(token["policy"].stringValue)
+            let policies : [JSON] = Blockfrost.getNfts(addressOrHandle: addressOrAsset).filter {
+                $0["unit"].stringValue.starts(with: policy)
             }
-            return policies
+            return policies.count
         } catch {
-            return []
+            return 0
         }
-    }
-    
-    static func numRequiredAssets(address: String, policy: String) -> Int {
-        return PoolPm.getTokenPolicies(addressOrAsset: address).filter({ $0 == policy }).count
     }
     
     static private func getAssetUrlFor(_ selection : String) -> String {
         return "\(PoolPm.POOLPM_ASSET_API)/\(selection.lowercased())"
-    }
-    
-    static private func getWalletUrlFor(_ selection : String) -> String {
-        return "\(PoolPm.POOLPM_WALLET_API)/\(selection.lowercased())"
     }
     
 }

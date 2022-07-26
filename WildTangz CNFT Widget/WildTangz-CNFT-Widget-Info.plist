@@ -4,5 +4,7 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>BLOCKFROST_KEY</key>
+	<string>$(BLOCKFROST_KEY)</string>
 </dict>
 </plist>

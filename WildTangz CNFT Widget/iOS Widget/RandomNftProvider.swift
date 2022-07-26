@@ -53,6 +53,7 @@ struct RandomNftProvider: IntentTimelineProvider {
                 let reloadDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
                 let timeline = Timeline(entries: entries, policy: .after(reloadDate))
                 completion(timeline)
+                return
             } catch {
                 sleep(RandomNftProvider.BACKOFF)
             }
@@ -77,9 +78,9 @@ struct RandomNftWidgetView : View {
                     Color(.black)
                     switch entry.nftInfo?.mediaType {
                     case NftInfo.SVG_IMAGE_TYPE:
-                        entry.nftInfo?.asSVGNode()?.toSwiftUI()
+                        entry.nftInfo?.svgNode!.toSwiftUI()
                     default:
-                        Image(uiImage: (entry.nftInfo?.asUIImage())!).resizable().scaledToFit()
+                        Image(uiImage: (entry.nftInfo?.uiImage)!).resizable().scaledToFit()
                     }
                 }
             }

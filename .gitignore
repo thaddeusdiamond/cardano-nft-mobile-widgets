@@ -96,6 +96,7 @@ iOSInjectionProject/
 certificates/
 private/
 **/app/release/**
+**/Secrets.xcconfig
 
 # Android Studio
 **/.idea/deploymentTargetDropDown.xml

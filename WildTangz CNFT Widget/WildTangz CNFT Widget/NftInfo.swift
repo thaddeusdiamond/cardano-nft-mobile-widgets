@@ -14,37 +14,39 @@ class NftInfo {
     static let SVG_IMAGE_TYPE = "image/svg+xml"
     static let SVG_SETTINGS = SVGSettings(ppi: 48)
     
-    static let MAX_PIXEL_SIZE = 420
+    static let MAX_PIXEL_SIZE = 360
     static let DOWNSAMPLE_OPTS: [NSString: Any]  = [
         kCGImageSourceCreateThumbnailFromImageAlways: true,
         kCGImageSourceCreateThumbnailWithTransform: true,
-        kCGImageSourceShouldCacheImmediately: true,
+        kCGImageSourceShouldCache: true,
+        kCGImageSourceShouldCacheImmediately: false,
         kCGImageSourceThumbnailMaxPixelSize: NftInfo.MAX_PIXEL_SIZE
+        //kCGImageSourceSubsampleFactor: 8
     ]
     
     let mediaType: String?
-    let imageUrl: URL?
-    let imageData: Data?
+    let uiImage: UIImage?
+    let svgNode: SVGNode?
     
     init(mediaType: String? = nil, imageData: Data? = nil, imageUrl: URL? = nil) {
         self.mediaType = mediaType
-        self.imageData = imageData
-        self.imageUrl = imageUrl
+        self.uiImage = NftInfo.asUIImage(mediaType: mediaType, imageData: imageData, imageUrl: imageUrl)
+        self.svgNode = NftInfo.asSVGNode(mediaType: mediaType, imageData: imageData, imageUrl: imageUrl)
     }
     
-    func asUIImage() -> UIImage? {
+    private static func asUIImage(mediaType: String?, imageData: Data?, imageUrl: URL?) -> UIImage? {
         guard mediaType != NftInfo.SVG_IMAGE_TYPE else {
             return nil
         }
         if imageData != nil {
             return UIImage(data: imageData!)
         } else if imageUrl != nil {
-            return downsampledImage(imageUrl: imageUrl!)
+            return NftInfo.downsampledImage(imageUrl: imageUrl!)
         }
         return nil
     }
     
-    func downsampledImage(imageUrl: URL) -> UIImage? {
+    private static func downsampledImage(imageUrl: URL) -> UIImage? {
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let imageSource = CGImageSourceCreateWithURL(imageUrl as CFURL, imageSourceOptions),
               let scaledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, NftInfo.DOWNSAMPLE_OPTS as CFDictionary) else {
@@ -54,7 +56,7 @@ class NftInfo {
         return UIImage(cgImage: scaledImage)
     }
     
-    func asSVGNode() -> SVGNode? {
+    private static func asSVGNode(mediaType: String?, imageData: Data?, imageUrl: URL?) -> SVGNode? {
         guard mediaType == NftInfo.SVG_IMAGE_TYPE else {
             return nil
         }
