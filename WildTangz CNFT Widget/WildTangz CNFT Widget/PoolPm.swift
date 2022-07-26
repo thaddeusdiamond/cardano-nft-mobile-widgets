@@ -18,7 +18,6 @@ class PoolPm {
 
     static let ASSET_PREFIX : String = "asset"
 
-    static let IPFS_GATEWAY : String = "https://infura-ipfs.io/ipfs"
     static let IPFS_PROTOCOL : String = "ipfs://"
     static let IPFS_V1_START : String.Element = "Q"
     static let IPFS_V2 : String = "baf"
@@ -52,9 +51,9 @@ class PoolPm {
         let imageJson = tokenMetadata["image"]
         let mediaType = tokenMetadata["mediaType"].stringValue
         if let imageUrl = imageJson.string {
-            let webUrl = convertedToWeb(imageUrl: imageUrl)
-            os_log("%s", log: PoolPm.LOGGER, type: .info, webUrl)
-            return NftInfo(mediaType: mediaType, imageUrl: URL(string: webUrl))
+            let webUrl = ipfsAwareString(imageUrl: imageUrl)
+            os_log("%s", log: PoolPm.LOGGER, type: .info, webUrl!)
+            return NftInfo(mediaType: mediaType, imageUrl: webUrl)
         } else if let imageDataArr = imageJson.array {
             let imageDataConcat : String = imageDataArr.map({ (subData : JSON) in subData.stringValue }).reduce("", +)
             let imageDataInlineStart : String.Index = imageDataConcat.firstIndex(of: ",")!
@@ -85,14 +84,14 @@ class PoolPm {
         return nil
     }
     
-    static private func convertedToWeb(imageUrl: String) -> String {
+    static private func ipfsAwareString(imageUrl: String) -> String? {
         if imageUrl.starts(with: PoolPm.IPFS_PROTOCOL), let cidStart = imageUrl.firstIndex(of: PoolPm.IPFS_V1_START) {
             let cid = imageUrl[cidStart..<imageUrl.endIndex]
-            return "\(PoolPm.IPFS_GATEWAY)/\(cid)"
+            return String(cid)
         }
         
         if imageUrl.starts(with: PoolPm.IPFS_V2) {
-            return "\(PoolPm.IPFS_GATEWAY)/\(imageUrl)"
+            return imageUrl
         }
         
         return imageUrl

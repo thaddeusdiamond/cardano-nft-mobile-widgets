@@ -15,7 +15,15 @@ func getAsJson(url: String, method: String = GET_REQUEST, headers: [String:Strin
         return JSON()
     }
     
-    var request = URLRequest(url: apiEndpoint)
+    let urlData = try getAsData(url: apiEndpoint, method: method, headers: headers)
+    if let metadataData : Data = urlData {
+        return try JSON(data: metadataData)
+    }
+    return JSON()
+}
+
+func getAsData(url: URL, method: String = GET_REQUEST, headers: [String:String] = [:]) throws -> Data? {
+    var request = URLRequest(url: url)
     request.httpMethod = method
     for (headerField, value) in headers {
         request.addValue(value, forHTTPHeaderField: headerField)
@@ -31,9 +39,5 @@ func getAsJson(url: String, method: String = GET_REQUEST, headers: [String:Strin
     }
     task.resume()
     _ = semaphore.wait(timeout: .distantFuture)
-    
-    if let metadataData : Data = urlData {
-        return try JSON(data: metadataData)
-    }
-    return JSON()
+    return urlData
 }

@@ -13,9 +13,10 @@ class Blockfrost {
     static let HANDLE_IDENTIFIER = "$"
     static let HANDLE_POLICY_ID = "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a"
     
-    static let BLOCKFROST_URL = "https://cardano-mainnet.blockfrost.io/api/v0"
-    
-    static let BLOCKFROST_KEY : String = Bundle.main.infoDictionary?["BLOCKFROST_KEY"] as! String
+    private static let BLOCKFROST_URL = "https://cardano-mainnet.blockfrost.io/api/v0"
+    private static let BLOCKFROST_CARDANO_KEY : String = Bundle.main.infoDictionary?["BLOCKFROST_CARDANO_KEY"] as! String
+    private static let BLOCKFROST_IPFS_KEY : String = Bundle.main.infoDictionary?["BLOCKFROST_IPFS_KEY"] as! String
+    private static let BLOCKFROST_IPFS_GATEWAY = "https://ipfs.blockfrost.io/api/v0/ipfs/gateway"
     
     static func getAssetInfo(_ assetHexName : String) -> JSON {
         return callBlockfrostApi("assets/\(assetHexName)")
@@ -50,11 +51,18 @@ class Blockfrost {
         do {
             return try getAsJson(
                 url: "\(Blockfrost.BLOCKFROST_URL)/\(endpoint.lowercased())",
-                headers: ["project_id": Blockfrost.BLOCKFROST_KEY, "Content-Type": "application/json"]
+                headers: ["project_id": Blockfrost.BLOCKFROST_CARDANO_KEY, "Content-Type": "application/json"]
             )
         } catch {
             return JSON()
         }
+    }
+    
+    static func getDataFromIpfs(_ ipfsId: String) -> Data? {
+        return try? getAsData(
+            url: URL(string: "\(Blockfrost.BLOCKFROST_IPFS_GATEWAY)/\(ipfsId)")!,
+            headers: ["project_id": Blockfrost.BLOCKFROST_IPFS_KEY, "Content-Type": "application/json"]
+        )!
     }
     
 }
