@@ -762,7 +762,7 @@
 				CODE_SIGN_ENTITLEMENTS = "WildTangz CNFT Widget/WildTangz CNFT Widget.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"WildTangz CNFT Widget/Preview Content\"";
 				DEVELOPMENT_TEAM = LSLF7F6K6P;
 				ENABLE_PREVIEWS = YES;
@@ -799,7 +799,7 @@
 				CODE_SIGN_ENTITLEMENTS = "WildTangz CNFT Widget/WildTangz CNFT Widget.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"WildTangz CNFT Widget/Preview Content\"";
 				DEVELOPMENT_TEAM = LSLF7F6K6P;
 				ENABLE_PREVIEWS = YES;
@@ -922,7 +922,7 @@
 				CODE_SIGN_ENTITLEMENTS = "iOS WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = LSLF7F6K6P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS Widget/Info.plist";
@@ -952,7 +952,7 @@
 				CODE_SIGN_ENTITLEMENTS = "iOS WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = LSLF7F6K6P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS Widget/Info.plist";
@@ -980,7 +980,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = LSLF7F6K6P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cardano NFT Stickers/Info.plist";
@@ -1009,7 +1009,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Cardano NFT Stickers/Cardano NFT StickersRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = LSLF7F6K6P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cardano NFT Stickers/Info.plist";

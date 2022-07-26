@@ -39,7 +39,7 @@ struct ContentView: View {
                                 .foregroundColor(darkAwareForeground)
                             let instructions : [String] = [
                                 "Enter an address, handle ($), or single asset ID (asset1...) then click 'Update'. The selection will display under 'Current Selection'",
-                                "Exit app, perform a 'long press' on the home screen, then hit '+' in the top-left corner to add a widget to the home screen (NFT viewer and portfolio view available)",
+                                "Exit app, perform a 'long press' on the home screen, then hit '+' in the top-left corner to add a widget to the home screen",
                                 "Wait patiently as an NFT loads into the widget viewer (1-2 minutes).  The widget will refresh on its own every 15 minutes."
                             ]
                             VStack {

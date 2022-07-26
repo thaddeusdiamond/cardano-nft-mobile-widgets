@@ -14,7 +14,6 @@ struct iOS_Widget: WidgetBundle {
 
     var body: some Widget {
         RandomNftWidget()
-        ApewatchWidget()
     }
     
     struct RandomNftWidget: Widget {
