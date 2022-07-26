@@ -20,7 +20,7 @@ class PoolPm {
 
     static let IPFS_PROTOCOL : String = "ipfs://"
     static let IPFS_V1_START : String.Element = "Q"
-    static let IPFS_V2 : String = "baf"
+    static let IPFS_V2_START : String = "baf"
     
     static let MAX_ATTEMPTS : Int = 3
     
@@ -34,17 +34,11 @@ class PoolPm {
     static private func getAssetData(assetId: String) -> NftInfo? {
         do {
             let token : JSON = try getAsJson(url: PoolPm.getAssetUrlFor(assetId))
-            if isNft(token: token) {
-                return getNftImage(tokenMetadata: token["metadata"])
-            }
+            return getNftImage(tokenMetadata: token["metadata"])
         } catch {
             // Some generic error occurred, return the default NFT
         }
         return nil
-    }
-    
-    static private func isNft(token: JSON) -> Bool {
-        return token["quantity"].intValue == 1
     }
     
     static private func getNftImage(tokenMetadata: JSON) -> NftInfo? {
@@ -56,12 +50,17 @@ class PoolPm {
             return NftInfo(mediaType: mediaType, imageUrl: webUrl)
         } else if let imageDataArr = imageJson.array {
             let imageDataConcat : String = imageDataArr.map({ (subData : JSON) in subData.stringValue }).reduce("", +)
-            let imageDataInlineStart : String.Index = imageDataConcat.firstIndex(of: ",")!
-            let imageDataInline = String(imageDataConcat[imageDataConcat.index(imageDataInlineStart, offsetBy: 1)...])
-            if imageDataConcat.range(of: "base64,") != nil {
-                return NftInfo(mediaType: mediaType, imageData: Data(base64Encoded: imageDataInline))
+            if imageDataConcat.starts(with: NftInfo.DATA_PREFIX) {
+                let imageDataInlineStart : String.Index = imageDataConcat.firstIndex(of: ",")!
+                let imageDataInline = String(imageDataConcat[imageDataConcat.index(imageDataInlineStart, offsetBy: 1)...])
+                if imageDataConcat.range(of: "base64,") != nil {
+                    return NftInfo(mediaType: mediaType, imageData: Data(base64Encoded: imageDataInline))
+                }
+                return NftInfo(mediaType: mediaType, imageData: Data(imageDataInline.utf8))
+            } else {
+                os_log("%s", log: PoolPm.LOGGER, type: .info, imageDataConcat)
+                return NftInfo(mediaType: mediaType, imageUrl: ipfsAwareString(imageUrl: imageDataConcat))
             }
-            return NftInfo(mediaType: mediaType, imageData: Data(imageDataInline.utf8))
         }
         return nil
     }
@@ -85,13 +84,13 @@ class PoolPm {
     }
     
     static private func ipfsAwareString(imageUrl: String) -> String? {
-        if imageUrl.starts(with: PoolPm.IPFS_PROTOCOL), let cidStart = imageUrl.firstIndex(of: PoolPm.IPFS_V1_START) {
-            let cid = imageUrl[cidStart..<imageUrl.endIndex]
-            return String(cid)
-        }
-        
-        if imageUrl.starts(with: PoolPm.IPFS_V2) {
-            return imageUrl
+        if imageUrl.starts(with: PoolPm.IPFS_PROTOCOL) {
+            if let cidStart = imageUrl.firstIndex(of: PoolPm.IPFS_V1_START) {
+                return String(imageUrl[cidStart..<imageUrl.endIndex])
+            } else if let cidStart = imageUrl.range(of: PoolPm.IPFS_V2_START)?.lowerBound {
+                return String(imageUrl[cidStart..<imageUrl.endIndex])
+            }
+            return nil
         }
         
         return imageUrl
