@@ -96,6 +96,7 @@ iOSInjectionProject/
 certificates/
 private/
 **/app/release/**
+**/secrets.xml
 **/Secrets.xcconfig
 
 # Android Studio

@@ -13,7 +13,8 @@ import android.util.Base64
 import android.widget.RemoteViews
 import com.caverock.androidsvg.SVG
 import org.json.JSONArray
-import java.net.URL
+import java.nio.charset.StandardCharsets
+import java.util.*
 import kotlin.math.roundToInt
 
 
@@ -57,23 +58,32 @@ private class UpdateWidgetTask(
     private val MAX_BITMAP_SIZE : Double = 7500000.0
     private val MAX_WIDTH : Int = 1000
     private val MAX_HEIGHT : Int = 1000
-    private val BASE64_ENCODED_PNG : String = "data:image/png;base64"
+
+    private val BASE64_ENCODING_MARKER : String = ";base64,"
+    private val BASE64_ENCODED_PNG : String = "data:image/png"
+
+    private var blockfrost : Blockfrost
+
+    init {
+        blockfrost = Blockfrost(context)
+    }
 
     override fun doInBackground(vararg addressOrAssets: String?): Bitmap? {
-        val eligibleImages = PoolPm.getNftUrls(addressOrAssets[0]!!)
+        val eligibleImages = getNftUrls(addressOrAssets[0]!!)
         for (attempt in 0 until MAX_RETRIES) {
-            val selectedImage = eligibleImages.randomOrNull()
-            if (selectedImage == null) {
+            val nextAttemptIndex = Random().nextInt(eligibleImages.length())
+            val nextAttempt = eligibleImages.getJSONObject(nextAttemptIndex)
+            if (nextAttempt == null) {
                 return null
             }
 
             try {
-                val image = when (selectedImage.first) {
-                    "image/svg+xml" -> processSvg(selectedImage.second)
-                    else -> processImage(selectedImage.second)
-                }
-                if (image != null) {
-                    return image
+                val selectedImage = blockfrost.getNftMediaImage(nextAttempt)
+                if (selectedImage != null) {
+                    return when (selectedImage.first) {
+                        "image/svg+xml" -> processSvg(selectedImage.second)
+                        else -> processImage(selectedImage.second)
+                    }
                 }
             } catch (e: Exception) {
                 // Ignore and continue
@@ -82,8 +92,27 @@ private class UpdateWidgetTask(
         return null
     }
 
+    private fun getNftUrls(addressOrAsset: String): JSONArray {
+        when (addressOrAsset.startsWith(PoolPm.ASSET_PREFIX)) {
+            true -> {
+                val jsonArray = JSONArray()
+                jsonArray.put(PoolPm.convertToBlockfrost(addressOrAsset, blockfrost))
+                return jsonArray
+            }
+            false -> {
+                return blockfrost.getAddressTokens(addressOrAsset)
+            }
+        }
+    }
+
     private fun processSvg(selectedImage: Any) : Bitmap {
-        val imageBody = URL(PoolPm.convertedToWeb(selectedImage.toString())).readText()
+        val imageBodyBytes : ByteArray = if (selectedImage is JSONArray) {
+            convertJsonArrayToByteArray(selectedImage)
+        } else {
+            blockfrost.getDataMaybeFromIpfs(selectedImage.toString()).readBytes()
+        }
+
+        val imageBody = String(imageBodyBytes, StandardCharsets.UTF_8)
         val svg = SVG.getFromString(imageBody)
         val bitmap = Bitmap.createBitmap(MAX_WIDTH, MAX_HEIGHT, Bitmap.Config.ARGB_8888)
         val bmCanvas = Canvas(bitmap)
@@ -92,25 +121,28 @@ private class UpdateWidgetTask(
         return bitmap
     }
 
-    private fun processImage(selectedImage: Any) : Bitmap? {
-        if (selectedImage is JSONArray) {
-            val rawImage = StringBuilder()
-            for (index in 0 until selectedImage.length()) {
-                rawImage.append(selectedImage.get(index))
-            }
-            return parseStringToBitmap(rawImage.toString())
+    private fun convertJsonArrayToByteArray(jsonArray: JSONArray) : ByteArray {
+        val jsonAsString = StringBuilder()
+        for (index in 0 until jsonArray.length()) {
+            jsonAsString.append(jsonArray.get(index))
+        }
+        val dataString = jsonAsString.toString()
+        if (dataString.contains(BASE64_ENCODING_MARKER)) {
+            val rawData = dataString.substring(dataString.indexOf(BASE64_ENCODING_MARKER) + BASE64_ENCODING_MARKER.length)
+            return Base64.decode(rawData, Base64.DEFAULT)
         } else {
-            val imageUrl = URL(PoolPm.convertedToWeb(selectedImage.toString()))
-            return BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
+            return ByteArray(0)
         }
     }
 
-    private fun parseStringToBitmap(rawImage: String) : Bitmap? {
-        if (rawImage.startsWith(BASE64_ENCODED_PNG)) {
-            val decodedRawImage : ByteArray = Base64.decode(rawImage.substring(BASE64_ENCODED_PNG.length + 1), Base64.DEFAULT)
+    private fun processImage(selectedImage: Any) : Bitmap? {
+        if (selectedImage is JSONArray) {
+            val decodedRawImage = convertJsonArrayToByteArray(selectedImage)
             return BitmapFactory.decodeByteArray(decodedRawImage, 0, decodedRawImage.size)
+        } else {
+            val imageInputStream = blockfrost.getDataMaybeFromIpfs(selectedImage.toString())
+            return BitmapFactory.decodeStream(imageInputStream)
         }
-        return null
     }
 
     override fun onPostExecute(image: Bitmap?) {

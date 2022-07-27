@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.wildtangz.cardano.nft"
-    android:versionCode="150"
-    android:versionName="1.5">
+    android:versionCode="160"
+    android:versionName="1.6">
 
     <application
         android:allowBackup="true"
