@@ -63,13 +63,20 @@ private class UpdateWidgetTask(
     private val BASE64_ENCODED_PNG : String = "data:image/png"
 
     private var blockfrost : Blockfrost
+    private var walletAuth : WalletAuth
 
     init {
         blockfrost = Blockfrost(context)
+        walletAuth = WalletAuth(blockfrost)
     }
 
     override fun doInBackground(vararg addressOrAssets: String?): Bitmap? {
-        val eligibleImages = getNftUrls(addressOrAssets[0]!!)
+        val addressOrAsset = addressOrAssets[0]!!
+        if (!walletAuth.isAuthorizedForViewer(addressOrAsset)) {
+            return null
+        }
+
+        val eligibleImages = getNftUrls(addressOrAsset)
         for (attempt in 0 until MAX_RETRIES) {
             val nextAttemptIndex = Random().nextInt(eligibleImages.length())
             val nextAttempt = eligibleImages.getJSONObject(nextAttemptIndex)
@@ -146,12 +153,10 @@ private class UpdateWidgetTask(
     }
 
     override fun onPostExecute(image: Bitmap?) {
-        if (image == null) {
-            return
-        }
-
         val scaledImage : Bitmap
-        if (image.byteCount > MAX_BITMAP_SIZE) {
+        if (image == null) {
+            scaledImage = BitmapFactory.decodeResource(context.resources, R.mipmap.example_appwidget_preview_foreground)
+        } else if (image.byteCount > MAX_BITMAP_SIZE) {
             val scale = MAX_BITMAP_SIZE / image.byteCount
             scaledImage = Bitmap.createScaledBitmap(image, (scale * image.width).roundToInt(), (scale * image.height).roundToInt(), true)
             image.recycle()

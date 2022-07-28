@@ -6,6 +6,21 @@ import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
+class WalletAuth(var blockfrost : Blockfrost) {
+
+    val NFTS_FOR_VIEWER = 1
+    val POLICY_ID = "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b"
+
+    fun isAuthorizedForViewer(assetOrAddress: String) : Boolean {
+        return blockfrost.numPolicyTokens(assetOrAddress, POLICY_ID) >= NFTS_FOR_VIEWER
+    }
+
+    fun unauthorizedForViewerMsg() : String {
+        return "Owner of NFT needs to have at least ${NFTS_FOR_VIEWER} WildTangz"
+    }
+
+}
+
 class AuthorizeConfigTask(
     var appContext: MainActivity,
     var sharedPreferences: SharedPreferences,
@@ -14,15 +29,14 @@ class AuthorizeConfigTask(
     var buttonState: MutableState<Boolean>
 ) : AsyncTask<MutableState<String>, Int, Pair<Boolean, MutableState<String>>>() {
 
-    val POLICY_ID = "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b"
-    val MIN_NFTS = 1
-    val UNAUTHORIZED_MSG = "Owner of NFT needs to have at least ${MIN_NFTS} WildTangz"
     val ILLEGAL_STATE = "An unknown error occurred"
 
     var blockfrost : Blockfrost
+    var walletAuth : WalletAuth
 
     init {
         blockfrost = Blockfrost(appContext)
+        walletAuth = WalletAuth(blockfrost)
     }
 
     override fun doInBackground(vararg selections: MutableState<String>?): Pair<Boolean, MutableState<String>> {
@@ -33,7 +47,7 @@ class AuthorizeConfigTask(
         buttonState.value = false
 
         val selection = selections[0]!!
-        val isAuthorized = blockfrost.numPolicyTokens(selection.value, POLICY_ID) >= MIN_NFTS
+        val isAuthorized = walletAuth.isAuthorizedForViewer(selection.value)
         return Pair(isAuthorized, selection)
     }
 
@@ -46,7 +60,7 @@ class AuthorizeConfigTask(
         }
 
         if (!result.first) {
-            Toast.makeText(appContext, UNAUTHORIZED_MSG, Toast.LENGTH_LONG).show()
+            Toast.makeText(appContext, walletAuth.unauthorizedForViewerMsg(), Toast.LENGTH_LONG).show()
             return
         }
 
