@@ -15,15 +15,16 @@ struct ApewatchEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationIntent
     
-    var selection: String = "$electedHandleGoesHere"
-    var numRequiredAssets: Int = AppAuthorization.REQUIRED_FOR_PORTFOLIO
+    var selection: String = AppConstants.SAMPLE_HANDLE
+    var isAuthorized: Bool = true
     var portfolioInfo: PortfolioInfo? = nil
     
 }
 
 struct ApewatchProvider: IntentTimelineProvider {
     
-    static let HOURS_REFRESH: Int = 1
+    static let REFRESH_AUTH_HRS = 1
+    static let REFRESH_UNAUTH_HRS = 3
         
     func placeholder(in context: Context) -> ApewatchEntry {
         return ApewatchEntry(date: Date(), configuration: ConfigurationIntent())
@@ -42,21 +43,33 @@ struct ApewatchProvider: IntentTimelineProvider {
         }
         
         let currentDate : Date = Date()
-        let portfolioInfo : PortfolioInfo? = ApewatchApp.getPortfolioValue(address: address)
-        let numRequiredAssets : Int = PoolPm.numRequiredAssets(addressOrAsset: address, policy: AppAuthorization.REQUIRED_POLICY)
+        let addressAuthorized = AppAuthorization.isAuthorizedForPortfolio(addressOrAsset: address)
+        var portfolioInfo : PortfolioInfo? = nil
+        if addressAuthorized {
+            portfolioInfo = ApewatchApp.getPortfolioValue(address: address)
+        }
+        
         let entries: [ApewatchEntry] = [
             ApewatchEntry(
                 date: currentDate,
                 configuration: configuration,
                 selection: address,
-                numRequiredAssets: numRequiredAssets,
+                isAuthorized: addressAuthorized,
                 portfolioInfo: portfolioInfo
             )
         ]
 
-        let reloadDate = Calendar.current.date(byAdding: .hour, value: ApewatchProvider.HOURS_REFRESH, to: currentDate)!
+        let reloadDate = reloadDateFor(currentDate: currentDate, isAuthorized: addressAuthorized)
         let timeline = Timeline(entries: entries, policy: .after(reloadDate))
         return completion(timeline)
+    }
+    
+    private func reloadDateFor(currentDate : Date, isAuthorized : Bool) -> Date {
+        if isAuthorized {
+            return Calendar.current.date(byAdding: .hour, value: ApewatchProvider.REFRESH_AUTH_HRS, to: currentDate)!
+        } else {
+            return Calendar.current.date(byAdding: .hour, value: ApewatchProvider.REFRESH_UNAUTH_HRS, to: currentDate)!
+        }
     }
     
 }
@@ -117,9 +130,9 @@ struct ApewatchWidgetView : View {
             
             Spacer()
             
-            if entry.numRequiredAssets < AppAuthorization.REQUIRED_FOR_PORTFOLIO {
+            if !entry.isAuthorized {
                 VStack {
-                    Text("Wallet does not have \(AppAuthorization.REQUIRED_FOR_PORTFOLIO) \(AppAuthorization.REQUIRED_NAME)")
+                    Text(AppAuthorization.unauthorizedForPortfolioMsg())
                 }
             } else if family == .systemSmall {
                 ApewatchWidgetView.getPortfolioVStack(valueAda: valueAda, valueUsd: valueUsd)

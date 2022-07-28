@@ -61,14 +61,15 @@ struct ContentView: View {
                                 if self.newAddress.isEmpty {
                                     return
                                 }
-                                let numRequiredAssets = PoolPm.numRequiredAssets(addressOrAsset: self.newAddress, policy: AppAuthorization.REQUIRED_POLICY)
-                                guard numRequiredAssets >= AppAuthorization.REQUIRED_FOR_VIEWER else {
+                                
+                                guard AppAuthorization.isAuthorizedForViewer(addressOrAsset: self.newAddress) else {
                                     Toast.text(
-                                        "Address needs at least \(AppAuthorization.REQUIRED_FOR_VIEWER) \(AppAuthorization.REQUIRED_NAME) NFT(s)",
+                                        AppAuthorization.unauthorizedForViewerMsg(),
                                         config: ToastConfiguration(displayTime: 20)
                                     ).show()
                                     return
                                 }
+                                
                                 self.selectedAddress = self.newAddress
                                 UserDefaults(suiteName: AppConstants.CONFIG_GROUP_NAME)!.set(self.selectedAddress, forKey: AppConstants.ADDR_KEY)
                                 WidgetCenter.shared.reloadAllTimelines()

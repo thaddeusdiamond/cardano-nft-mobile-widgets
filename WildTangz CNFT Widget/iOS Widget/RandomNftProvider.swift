@@ -15,6 +15,9 @@ struct RandomNftEntry: TimelineEntry {
         
     let date: Date
     let configuration: ConfigurationIntent
+    
+    let selection: String
+    let isAuthorized: Bool
     let nftInfo: NftInfo?
     
 }
@@ -26,13 +29,16 @@ struct RandomNftProvider: IntentTimelineProvider {
     static let MAX_LOAD_ATTEMPTS = 5
     static let BACKOFF : UInt32 = 2
     
+    static let REFRESH_AUTH_MINS = 15
+    static let REFRESH_UNAUTH_MINS = 120
+    
     func placeholder(in context: Context) -> RandomNftEntry {
-        return RandomNftEntry(date: Date(), configuration: ConfigurationIntent(), nftInfo: NftInfo())
+        return RandomNftEntry(date: Date(), configuration: ConfigurationIntent(), selection: AppConstants.SAMPLE_HANDLE, isAuthorized: true, nftInfo: NftInfo())
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (RandomNftEntry) -> ()) {
         if context.isPreview {
-            let entry = RandomNftEntry(date: Date(), configuration: configuration, nftInfo: NftInfo())
+            let entry = RandomNftEntry(date: Date(), configuration: configuration, selection: AppConstants.SAMPLE_HANDLE, isAuthorized: true, nftInfo: NftInfo())
             completion(entry)
         }
     }
@@ -43,20 +49,32 @@ struct RandomNftProvider: IntentTimelineProvider {
         }
         
         let currentDate : Date = Date()
+        let isAuthorized = AppAuthorization.isAuthorizedForViewer(addressOrAsset: address)
+        let reloadDate = reloadDateFor(currentDate: currentDate, isAuthorized: isAuthorized)
         for _ in 1...RandomNftProvider.MAX_LOAD_ATTEMPTS {
             do {
-                let nftInfo : NftInfo? = PoolPm.getNftFromAddrString(addressOrAsset: address)
+                var nftInfo : NftInfo? = nil
+                if isAuthorized {
+                    nftInfo = PoolPm.getNftFromAddrString(addressOrAsset: address)
+                }
                 let entries: [RandomNftEntry] = [
-                    RandomNftEntry(date: currentDate, configuration: configuration, nftInfo: nftInfo)
+                    RandomNftEntry(date: currentDate, configuration: configuration, selection: address, isAuthorized: isAuthorized, nftInfo: nftInfo)
                 ]
 
-                let reloadDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
                 let timeline = Timeline(entries: entries, policy: .after(reloadDate))
                 completion(timeline)
                 return
             } catch {
                 sleep(RandomNftProvider.BACKOFF)
             }
+        }
+    }
+    
+    private func reloadDateFor(currentDate : Date, isAuthorized : Bool) -> Date {
+        if isAuthorized {
+            return Calendar.current.date(byAdding: .minute, value: RandomNftProvider.REFRESH_AUTH_MINS, to: currentDate)!
+        } else {
+            return Calendar.current.date(byAdding: .minute, value: RandomNftProvider.REFRESH_UNAUTH_MINS, to: currentDate)!
         }
     }
     
@@ -71,7 +89,12 @@ struct RandomNftWidgetView : View {
     var body: some View {
         autoreleasepool {
             ZStack {
-                if entry.nftInfo == nil || entry.nftInfo?.mediaType == nil {
+                if !entry.isAuthorized {
+                    VStack {
+                        Text(entry.selection).font(.title).fontWeight(.bold)
+                        Text(AppAuthorization.unauthorizedForViewerMsg()).font(.title3)
+                    }.padding()
+                } else if entry.nftInfo == nil || entry.nftInfo?.mediaType == nil {
                     Color("WidgetImageBG")
                     Image(uiImage: UIImage(named: RandomNftWidgetView.PLACEHOLDER_IMG_NAME)!).resizable().scaledToFit()
                 } else {
