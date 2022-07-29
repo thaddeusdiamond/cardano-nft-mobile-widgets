@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 class WalletAuth(var blockfrost : Blockfrost) {
 
     val NFTS_FOR_VIEWER = 1
+    val NFTS_FOR_PORTFOLIO = 5
     val POLICY_ID = "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b"
 
     fun isAuthorizedForViewer(assetOrAddress: String) : Boolean {
@@ -16,7 +17,15 @@ class WalletAuth(var blockfrost : Blockfrost) {
     }
 
     fun unauthorizedForViewerMsg() : String {
-        return "Owner of NFT needs to have at least ${NFTS_FOR_VIEWER} WildTangz"
+        return "Owner of NFT needs to have at least ${NFTS_FOR_VIEWER} Wild Tangz"
+    }
+
+    fun isAuthorizedForPortfolio(assetOrAddress: String) : Boolean {
+        return blockfrost.numPolicyTokens(assetOrAddress, POLICY_ID) >= NFTS_FOR_PORTFOLIO
+    }
+
+    fun unauthorizedForPortfolioMsg() : String {
+        return "Wallet needs at least ${NFTS_FOR_PORTFOLIO} Wild Tangz"
     }
 
 }

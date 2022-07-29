@@ -31,7 +31,7 @@ class NftViewerWidget : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             val sharedPrefs = context.getSharedPreferences(context.getString(R.string.shared_config), Context.MODE_PRIVATE)
             val addressOrAsset = sharedPrefs.getString(context.getString(R.string.selection_key), "")
-            UpdateWidgetTask(context, appWidgetManager, appWidgetId).execute(addressOrAsset)
+            UpdateViewerWidgetTask(context, appWidgetManager, appWidgetId).execute(addressOrAsset)
         }
     }
 
@@ -48,7 +48,7 @@ class NftViewerWidget : AppWidgetProvider() {
     }
 }
 
-private class UpdateWidgetTask(
+private class UpdateViewerWidgetTask(
     var context: Context,
     var appWidgetManager: AppWidgetManager,
     var appWidgetId: Int

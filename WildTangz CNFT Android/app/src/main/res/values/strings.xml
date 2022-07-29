@@ -2,7 +2,20 @@
     <string name="app_name">WildTangz Cardano NFT</string>
     <string name="shared_config">com.wildtangz</string>
     <string name="selection_key">.nft.selection</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">View NFTs on Home Screen</string>
-    <string name="app_widget_img_description">Current NFT</string>
+
+    <string name="wild_tangz_logo_desc">Wild Tangz Logo</string>
+
+    <string name="viewer_widget_name">NFT Viewer</string>
+    <string name="viewer_widget_description">View NFTs on Home Screen</string>
+    <string name="viewer_widget_img_description">Current NFT</string>
+
+    <string name="portfolio_widget_name">NFT Portfolio</string>
+    <string name="portfolio_widget_description">View Portfolio Value on Home Screen (credit: ApeWatch)</string>
+    <string name="portfolio_default_assets">77 Assets</string>
+    <string name="portfolio_default_wallet">$electionHandle</string>
+    <string name="portfolio_default_ada">₳4,567.89</string>
+    <string name="portfolio_default_usd">$1,234.50</string>
+    <string name="portfolio_default_projects">55 Projects</string>
+    <string name="portfolio_default_update">As of 1:23 PM</string>
+    <string name="powered_by_apewatch">Source: ApeWatch</string>
 </resources>

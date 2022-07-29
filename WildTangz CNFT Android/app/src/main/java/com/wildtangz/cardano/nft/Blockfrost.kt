@@ -51,7 +51,7 @@ class Blockfrost(context: Context) {
         return numFound
     }
 
-    private fun getWalletName(addressOrAsset: String): String {
+    fun getWalletName(addressOrAsset: String): String {
         when (addressOrAsset.startsWith(PoolPm.ASSET_PREFIX)) {
             true -> {
                 return PoolPm.getAssetToken(addressOrAsset).getString(PoolPm.OWNER)

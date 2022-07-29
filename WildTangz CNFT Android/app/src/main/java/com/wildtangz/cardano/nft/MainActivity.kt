@@ -30,6 +30,8 @@ import com.wildtangz.cardano.nft.ui.theme.WildTangzCardanoNFTTheme
 
 class MainActivity : ComponentActivity() {
 
+    private val APPLICATION_WIDGETS = listOf(NftViewerWidget::class.java, ApewatchWidget::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,12 +47,14 @@ class MainActivity : ComponentActivity() {
     }
 
     fun sendBroadcast() {
-        val intent = Intent(applicationContext, NftViewerWidget::class.java)
-        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        val widgetIds = ComponentName(applicationContext, NftViewerWidget::class.java)
-        val ids = AppWidgetManager.getInstance(applicationContext).getAppWidgetIds(widgetIds)
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
-        applicationContext.sendBroadcast(intent)
+        APPLICATION_WIDGETS.forEach { widgetClazz ->
+            val intent = Intent(applicationContext, widgetClazz)
+            intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val widgetIds = ComponentName(applicationContext, widgetClazz)
+            val ids = AppWidgetManager.getInstance(applicationContext).getAppWidgetIds(widgetIds)
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            applicationContext.sendBroadcast(intent)
+        }
     }
 
     @Composable
@@ -123,7 +127,7 @@ class MainActivity : ComponentActivity() {
         PrimaryText(text = "Instructions", style = MaterialTheme.typography.titleMedium)
         val instructions = listOf(
             "Enter an address, handle ($), or single asset ID (asset1...) then click 'Update'. The selection will display under 'Current Selection'",
-            "Exit app, perform a 'long press' on the home screen, then select 'Widgets' to add a widget to the home screen",
+            "Exit app, perform a 'long press' on the home screen, then select 'Widgets' to add a widget to the home screen (NFT viewer and portfolio view available)",
             "Wait patiently as an NFT loads into the widget viewer (1-2 minutes).  The widget will refresh on its own every 30 minutes."
         )
         for (index in 0 until instructions.size) {
