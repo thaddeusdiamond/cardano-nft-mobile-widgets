@@ -60,7 +60,8 @@ private class PortfolioInfo(
     val numAssets: Int,
     val numProjects: Int,
     val adaValueEstimate: Double,
-    val adaToUsd: Double,
+    val fiatEstimate: Double,
+    val fiatCurrencyStr: String,
     val isAuthorized: Boolean) {
 }
 
@@ -70,29 +71,18 @@ private class UpdatePortfolioWidgetTask(
     var appWidgetId: Int
 ) : AsyncTask<String, Integer, PortfolioInfo>() {
 
-    private val CARDANO_KEY = "cardano"
-    private val USD_KEY = "usd"
+    private val ADA_KEY = "ADA"
+    private val USD_KEY = "USD"
+    private val USD_SYMBOL = "$"
 
-    private val APEWATCH_API: String = "https://apewatch.app/address"
-    private val APEWATCHAPP_STDOPTS: String = "?status=owned%2Clisted&show=nfts"
-    private val APEWATCH_REQD_HEADERS: Map<String, String> = mapOf(
-        Pair("Content-Type", "application/json"),
-        Pair("x-inertia-partial-component", "address/show"),
-        Pair("x-inertia", "true"),
-        Pair("x-inertia-partial-data", "assets"),
-        Pair("x-inertia-version", "096a8c34ea37cce3f200dba88000a3b0")
-    )
+    private val APEWATCH_API = "https://apewatch.app/api/v1/account"
 
-    private val PROPERTIES_KEY = "props"
     private val ASSETS_KEY = "assets"
-    private val NFTS_KEY = "nfts"
-    private val NFTS_VALUE_KEY = "value"
-    private val NFTS_ASSETS_KEY = "assets"
-    private val NFTS_ASSETS_STATUS_KEY = "status"
-
-    private val TRANSFERRED = "transferred"
-
-    private val COINGECKO_ADA_API = "https://api.coingecko.com/api/v3/simple/price?ids=cardano&vs_currencies=usd"
+    private val COUNTS_KEY = "counts"
+    private val DEFAULT_KEY = "default"
+    private val POLICIES_KEY = "policies"
+    private val TOTAL_KEY = "total"
+    private val VALUES_KEY = "values"
 
     private val MIN_WIDTH_FOR_ASSETS = 250
 
@@ -112,45 +102,40 @@ private class UpdatePortfolioWidgetTask(
                 numAssets = 0,
                 numProjects = 0,
                 adaValueEstimate = 0.0,
-                adaToUsd = 0.0,
+                fiatEstimate = 0.0,
+                fiatCurrencyStr = "",
                 isAuthorized = false
             )
         }
 
-        val currPrice = JSONObject(URL(COINGECKO_ADA_API).readText(StandardCharsets.UTF_8))
-        val adaToUsd = currPrice.getJSONObject(CARDANO_KEY).getDouble(USD_KEY)
-
-        with(URL("${APEWATCH_API}/${wallet}?${APEWATCHAPP_STDOPTS}").openConnection() as HttpURLConnection) {
-            APEWATCH_REQD_HEADERS.forEach { (key, value) ->
-                setRequestProperty(key, value)
-            }
-
+        with(URL("${APEWATCH_API}/${wallet}").openConnection() as HttpURLConnection) {
             val portfolioInfo = JSONObject(String(inputStream.readBytes(), StandardCharsets.UTF_8))
-            val nfts = portfolioInfo.getJSONObject(PROPERTIES_KEY).getJSONObject(ASSETS_KEY).getJSONArray(NFTS_KEY)
+            val nfts = portfolioInfo.getJSONObject(VALUES_KEY).getJSONObject(TOTAL_KEY).getJSONObject(DEFAULT_KEY)
 
-            var numProjects = 0
-            var adaValueEstimate = 0.0
-            var numAssets = 0
-            for (nftIndex in 0 until nfts.length()) {
-                val nft = nfts.getJSONObject(nftIndex)
-                numProjects++
-                adaValueEstimate += nft.getDouble(NFTS_VALUE_KEY)
-                val assets = nft.getJSONArray(NFTS_ASSETS_KEY)
-                for (assetIndex in 0 until assets.length()) {
-                    val asset = assets.getJSONObject(assetIndex)
-                    if (asset.getString(NFTS_ASSETS_STATUS_KEY).contentEquals(TRANSFERRED, ignoreCase = true)) {
-                        continue
-                    }
-                    numAssets++
-                }
+            val nftValuations = nfts.getJSONObject(VALUES_KEY)
+            val adaValueEstimate = nftValuations.getDouble(ADA_KEY)
+            val localCurrency = Currency.getInstance(Locale.getDefault())
+            val fiatEstimate : Double
+            val fiatCurrencyStr : String
+            if (nftValuations.has(localCurrency.currencyCode)) {
+                fiatEstimate = nftValuations.getDouble(localCurrency.currencyCode)
+                fiatCurrencyStr = localCurrency.symbol
+            } else {
+                fiatEstimate = nftValuations.getDouble(USD_KEY)
+                fiatCurrencyStr = USD_SYMBOL
             }
+
+            val counts = portfolioInfo.getJSONObject(COUNTS_KEY)
+            val numProjects = counts.getInt(POLICIES_KEY)
+            val numAssets = counts.getJSONObject(ASSETS_KEY).getInt(TOTAL_KEY)
 
             return PortfolioInfo(
                 wallet = wallet,
                 numAssets = numAssets,
                 numProjects = numProjects,
                 adaValueEstimate = adaValueEstimate,
-                adaToUsd = adaToUsd,
+                fiatEstimate = fiatEstimate,
+                fiatCurrencyStr = fiatCurrencyStr,
                 isAuthorized = true
             )
         }
@@ -176,7 +161,7 @@ private class UpdatePortfolioWidgetTask(
             }
 
             setTextViewText(R.id.portfolioValue, String.format("₳%,.2f", portfolioInfo.adaValueEstimate))
-            setTextViewText(R.id.portfolioValueUsd, String.format("$%,.2f", portfolioInfo.adaValueEstimate * portfolioInfo.adaToUsd))
+            setTextViewText(R.id.portfolioValueUsd, String.format("${portfolioInfo.fiatCurrencyStr}%,.2f", portfolioInfo.fiatEstimate))
 
             // See the dimensions and only add assets/projects if wide enough
             val options = appWidgetManager.getAppWidgetOptions(appWidgetId)

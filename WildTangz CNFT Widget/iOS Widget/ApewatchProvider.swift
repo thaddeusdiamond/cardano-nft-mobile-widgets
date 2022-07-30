@@ -81,8 +81,8 @@ struct ApewatchWidgetView : View {
     static let USD_SYMBOL : String = "$"
     
     static let ADA_VALUE_DEFAULT : Double = 1234.56
-    static let ADA_FLOOR_DEFAULT : Double = 567.89
-    static let ADA_TO_USD_DEFAULT : Double = 0.5
+    static let FIAT_ESTIMATE_DEFAULT : Double = 567.89
+    static let FIAT_CURRENCYSTR_DEFAULT : String = Locale.current.currencySymbol!
     
     static let NUM_ASSETS_DEFAULT : Int = 666
     static let NUM_PROJECTS_DEFAULT : Int = 33
@@ -115,10 +115,8 @@ struct ApewatchWidgetView : View {
             let numAssets = entry.portfolioInfo?.numAssets ?? ApewatchWidgetView.NUM_ASSETS_DEFAULT
             let numProjects = entry.portfolioInfo?.numProjects ?? ApewatchWidgetView.NUM_PROJECTS_DEFAULT
             let valueAda = entry.portfolioInfo?.adaValueEstimate ?? ApewatchWidgetView.ADA_VALUE_DEFAULT
-            let floorAda = entry.portfolioInfo?.adaFloorEstimate ?? ApewatchWidgetView.ADA_FLOOR_DEFAULT
-            let adaToUsd = entry.portfolioInfo?.adaToUsd ?? ApewatchWidgetView.ADA_TO_USD_DEFAULT
-            let valueUsd = valueAda * adaToUsd
-            //let floorUsd = floorAda * adaToUsd
+            let fiatEstimate = entry.portfolioInfo?.fiatEstimate ?? ApewatchWidgetView.FIAT_ESTIMATE_DEFAULT
+            let fiatCurrencyStr = entry.portfolioInfo?.fiatCurrencyStr ?? ApewatchWidgetView.FIAT_CURRENCYSTR_DEFAULT
             
             LazyVGrid(columns: [
                 GridItem(.flexible(), alignment: .center),
@@ -135,12 +133,12 @@ struct ApewatchWidgetView : View {
                     Text(AppAuthorization.unauthorizedForPortfolioMsg())
                 }
             } else if family == .systemSmall {
-                ApewatchWidgetView.getPortfolioVStack(valueAda: valueAda, valueUsd: valueUsd)
+                ApewatchWidgetView.getPortfolioVStack(valueAda: valueAda, fiatEstimate: fiatEstimate, fiatCurrencyStr: fiatCurrencyStr)
                 Spacer()
                 ApewatchWidgetView.getRefreshCounter()
             } else {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), alignment: .bottom), count: 2)) {
-                    ApewatchWidgetView.getPortfolioVStack(valueAda: valueAda, valueUsd: valueUsd)
+                    ApewatchWidgetView.getPortfolioVStack(valueAda: valueAda, fiatEstimate: fiatEstimate, fiatCurrencyStr: fiatCurrencyStr)
                     ApewatchWidgetView.getAssetsVStack(numAssets: numAssets, numProjects: numProjects)
                 }
                 
@@ -154,22 +152,13 @@ struct ApewatchWidgetView : View {
         }.padding().widgetURL(URL(string: "\(AppConstants.WIDGET_DEEPLINK_SCHEME)://\(AppConstants.APEWATCH_PATH)"))
     }
     
-    private static func getPortfolioVStack(valueAda: Double, valueUsd: Double) -> some View {
+    private static func getPortfolioVStack(valueAda: Double, fiatEstimate: Double, fiatCurrencyStr: String) -> some View {
         return VStack(alignment: .leading) {
             let valueAdaStr = ApewatchWidgetView.getFormattedString(value: valueAda, currency: ApewatchWidgetView.ADA_SYMBOL)
-            let valueUsdStr = ApewatchWidgetView.getFormattedString(value: valueUsd, currency: ApewatchWidgetView.USD_SYMBOL)
+            let valueUsdStr = ApewatchWidgetView.getFormattedString(value: fiatEstimate, currency: fiatCurrencyStr)
             Text(valueAdaStr).font(.title).foregroundColor(.accentColor)
             Text(valueUsdStr).font(.body).fontWeight(.light)
         }.frame(maxWidth: .infinity, alignment: .leading)
-    }
-    
-    private static func getFloorVStack(floorAda: Double, floorUsd: Double) -> some View {
-        VStack(alignment: .trailing) {
-            let floorAdaStr = ApewatchWidgetView.getFormattedString(value: floorAda, currency: ApewatchWidgetView.ADA_SYMBOL)
-            let floorUsdStr = ApewatchWidgetView.getFormattedString(value: floorUsd, currency: ApewatchWidgetView.USD_SYMBOL)
-            Text(floorAdaStr).font(.title3).foregroundColor(.gray).italic()
-            Text(floorUsdStr).font(.body).fontWeight(.light).foregroundColor(.gray).italic()
-        }.frame(maxWidth: .infinity, alignment: .trailing)
     }
     
     private static func getAssetsVStack(numAssets: Int, numProjects: Int) -> some View {
