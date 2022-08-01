@@ -17,6 +17,7 @@ class Blockfrost(context: Context) {
         const val TOKEN_KEY : String = "unit"
 
         private const val STAKE_ADDRESS_KEY : String = "stake_address"
+        private const val STAKE_PREFIX : String = "stake1"
 
         private const val HANDLE_PREFIX : String = "$"
         private const val HANDLE_POLICY_ID : String = "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a"
@@ -65,6 +66,9 @@ class Blockfrost(context: Context) {
     fun getAddressTokens(address: String): JSONArray {
         try {
             var normalizedAddress : String = address.lowercase()
+            if (normalizedAddress.startsWith(STAKE_PREFIX)) {
+                return getAccountAssets(normalizedAddress)
+            }
             if (normalizedAddress.startsWith(HANDLE_PREFIX)) {
                 normalizedAddress = lookupHandle(normalizedAddress)
             }

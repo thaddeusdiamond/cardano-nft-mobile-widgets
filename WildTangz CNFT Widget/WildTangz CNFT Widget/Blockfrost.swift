@@ -13,6 +13,8 @@ class Blockfrost {
     static let HANDLE_IDENTIFIER = "$"
     static let HANDLE_POLICY_ID = "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a"
     
+    private static let STAKE_PREFIX = "stake1"
+
     private static let BLOCKFROST_CARDANO_URL = "https://cardano-mainnet.blockfrost.io/api/v0"
     private static let BLOCKFROST_CARDANO_KEY : String = Bundle.main.infoDictionary?["BLOCKFROST_CARDANO_KEY"] as! String
     
@@ -27,20 +29,26 @@ class Blockfrost {
     
     static func getNfts(addressOrHandle: String) -> [JSON] {
         var assetsArray : [JSON]
-        if addressOrHandle.starts(with: Blockfrost.HANDLE_IDENTIFIER) {
+        if addressOrHandle.starts(with: Blockfrost.STAKE_PREFIX) {
+            assetsArray = getAccountAssets(addressOrHandle)
+        } else if addressOrHandle.starts(with: Blockfrost.HANDLE_IDENTIFIER) {
             let accountAddress = lookupHandleAddr(handle: addressOrHandle)
-            assetsArray = callBlockfrostPaginatedApi("accounts/\(accountAddress)/addresses/assets")
+            assetsArray = getAccountAssets(accountAddress)
         } else {
             let addressInfo = callBlockfrostApi("addresses/\(addressOrHandle)")
             if addressInfo["stake_address"].null != nil {
                 assetsArray = addressInfo["amount"].arrayValue
             } else {
-                assetsArray = callBlockfrostPaginatedApi("accounts/\(addressInfo["stake_address"].stringValue)/addresses/assets")
+                assetsArray = getAccountAssets(addressInfo["stake_address"].stringValue)
             }
         }
         return assetsArray.filter { $0["quantity"].intValue == 1 }
     }
     
+    private static func getAccountAssets(_ accountAddress: String) -> [JSON] {
+        return callBlockfrostPaginatedApi("accounts/\(accountAddress)/addresses/assets")
+    }
+
     private static func lookupHandleAddr(handle: String) -> String {
         let rawHandle = handle[handle.index(handle.startIndex, offsetBy: Blockfrost.HANDLE_IDENTIFIER.count)...]
         let assetName = Data(rawHandle.lowercased().utf8).map { String(format:"%02x", $0) }.joined()
