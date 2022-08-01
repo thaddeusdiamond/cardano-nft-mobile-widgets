@@ -10,7 +10,7 @@ android {
         applicationId "com.wildtangz.cardano.nft"
         minSdk 28
         targetSdk 32
-        versionCode 170
+        versionCode 172
         versionName "1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

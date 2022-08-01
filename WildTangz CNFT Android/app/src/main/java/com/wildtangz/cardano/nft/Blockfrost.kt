@@ -22,6 +22,8 @@ class Blockfrost(context: Context) {
         private const val HANDLE_PREFIX : String = "$"
         private const val HANDLE_POLICY_ID : String = "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a"
 
+        private const val PAGE_MAX : Int = 100
+
         private const val IPFS_PROTOCOL : String = "ipfs://"
         private const val IPFS_V0_START : String = "Q"
         private const val IPFS_V1_START : String = "baf"
@@ -98,15 +100,30 @@ class Blockfrost(context: Context) {
         return JSONObject(callBlockfrostCardanoApi("addresses/${address}"))
     }
 
-    private fun getAccountAssets(stakeAddress: String) : JSONArray {
-        return JSONArray(callBlockfrostCardanoApi("accounts/${stakeAddress}/addresses/assets"))
-    }
-
     private fun callBlockfrostCardanoApi(endpoint: String) : String {
         with(URL("${BLOCKFROST_CARDANO_PREFIX}/${endpoint}").openConnection() as HttpURLConnection) {
             setRequestProperty("Content-Type", BLOCKFROST_CONTENT_TYPE)
             setRequestProperty("project_id", cardanoKey)
             return String(inputStream.readBytes(), StandardCharsets.UTF_8)
+        }
+    }
+
+    private fun getAccountAssets(stakeAddress: String) : JSONArray {
+        return callPaginatedBlockfrostApi("accounts/${stakeAddress}/addresses/assets")
+    }
+
+    private fun callPaginatedBlockfrostApi(endpoint: String) : JSONArray {
+        var page = 1
+        val results = JSONArray()
+        while (true) {
+            val nextResult = JSONArray(callBlockfrostCardanoApi("${endpoint}?page=${page}"))
+            for (index in 0 until nextResult.length()) {
+                results.put(nextResult.get(index))
+            }
+            if (nextResult.length() < PAGE_MAX) {
+                return results
+            }
+            page++
         }
     }
 
