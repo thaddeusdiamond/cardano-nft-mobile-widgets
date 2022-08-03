@@ -75,6 +75,7 @@ private class UpdatePortfolioWidgetTask(
     private val USD_KEY = "USD"
     private val USD_SYMBOL = "$"
 
+    private val APEWATCH_SITE = "https://apewatch.app"
     private val APEWATCH_API = "https://apewatch.app/api/v1/account"
 
     private val ASSETS_KEY = "assets"
@@ -174,7 +175,7 @@ private class UpdatePortfolioWidgetTask(
             }
         }
 
-        val apewatchUri = Uri.parse("${APEWATCH_API}/${portfolioInfo.wallet}")
+        val apewatchUri = Uri.parse("${APEWATCH_SITE}/${portfolioInfo.wallet}")
         val launchUrl = Intent(Intent.ACTION_VIEW, apewatchUri)
         val pendingIntent = PendingIntent.getActivity(context, appWidgetId, launchUrl, PendingIntent.FLAG_IMMUTABLE)
         views.setOnClickPendingIntent(R.id.portfolioWidget, pendingIntent)
