@@ -10,7 +10,7 @@ class AppAuthorization {
     private static let REQUIRED_POLICY : String = "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b"
     private static let REQUIRED_NAME : String = "Wild Tangz"
     private static let REQUIRED_FOR_VIEWER : Int = 1
-    private static let REQUIRED_FOR_PORTFOLIO : Int = 5
+    private static let REQUIRED_FOR_PORTFOLIO : Int = 3
     
     static func isAuthorizedForViewer(addressOrAsset: String) -> Bool {
         PoolPm.numRequiredAssets(addressOrAsset: addressOrAsset, policy: REQUIRED_POLICY) >= REQUIRED_FOR_VIEWER

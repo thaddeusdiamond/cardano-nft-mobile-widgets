@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 class WalletAuth(var blockfrost : Blockfrost) {
 
     val NFTS_FOR_VIEWER = 1
-    val NFTS_FOR_PORTFOLIO = 5
+    val NFTS_FOR_PORTFOLIO = 3
     val POLICY_ID = "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b"
 
     fun isAuthorizedForViewer(assetOrAddress: String) : Boolean {
