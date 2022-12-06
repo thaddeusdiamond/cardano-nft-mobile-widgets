@@ -43,8 +43,7 @@ class Blockfrost(context: Context) {
         ipfsKey = context.getString(R.string.blockfrost_ipfs_key)
     }
 
-    fun numPolicyTokens(assetOrAddress: String, policy: String) : Int {
-        val ownedTokens = getAddressTokens(getWalletName(assetOrAddress))
+    fun numPolicyTokens(ownedTokens: JSONArray, policy: String) : Int {
         var numFound = 0
         for (index in 0 until ownedTokens.length()) {
             if (ownedTokens.getJSONObject(index).getString(TOKEN_KEY).startsWith(policy)) {

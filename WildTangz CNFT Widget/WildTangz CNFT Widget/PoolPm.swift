@@ -96,18 +96,25 @@ class PoolPm {
         return imageUrl
     }
     
-    static func numRequiredAssets(addressOrAsset: String, policy: String) -> Int {
+    static func numRequiredAssets(addressOrAsset: String, policies: [String]) -> [String: Int] {
         do {
             if addressOrAsset.starts(with: PoolPm.ASSET_PREFIX) {
                 let poolInfo : JSON = try getAsJson(url: PoolPm.getAssetUrlFor(addressOrAsset))
-                return numRequiredAssets(addressOrAsset: poolInfo["owner"].stringValue, policy: policy)
+                return numRequiredAssets(addressOrAsset: poolInfo["owner"].stringValue, policies: policies)
             }
-            let policies : [JSON] = Blockfrost.getNfts(addressOrHandle: addressOrAsset).filter {
-                $0["unit"].stringValue.starts(with: policy)
+            let nfts : [JSON] = Blockfrost.getNfts(addressOrHandle: addressOrAsset)
+            var policyCounts : [String: Int] = [:]
+            for nft in nfts {
+                //let policyId = String(nft["unit"].stringValue.prefix(56))
+                let policyId = policies.first(where: { policy -> Bool in nft["unit"].stringValue.starts(with: policy) })
+                if policyId != nil {
+                    let currentCount = policyCounts[policyId!]
+                    policyCounts[policyId!] = (currentCount == nil) ? 1 : (currentCount! + 1)
+                }
             }
-            return policies.count
+            return policyCounts
         } catch {
-            return 0
+            return [:]
         }
     }
     
