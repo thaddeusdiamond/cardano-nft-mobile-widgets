@@ -156,8 +156,8 @@ struct ApewatchWidgetView : View {
         return VStack(alignment: .leading) {
             let valueAdaStr = ApewatchWidgetView.getFormattedString(value: valueAda, currency: ApewatchWidgetView.ADA_SYMBOL)
             let valueUsdStr = ApewatchWidgetView.getFormattedString(value: fiatEstimate, currency: fiatCurrencyStr)
-            Text(valueAdaStr).font(.title).foregroundColor(.accentColor)
-            Text(valueUsdStr).font(.body).fontWeight(.light)
+            Text(valueAdaStr).font(.title).foregroundColor(.accentColor).lineLimit(1)
+            Text(valueUsdStr).font(.body).fontWeight(.light).lineLimit(1)
         }.frame(maxWidth: .infinity, alignment: .leading)
     }
     
