@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E105D8492AB1638A00464FDE /* TaptoolsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105D8482AB1638A00464FDE /* TaptoolsApp.swift */; };
+		E105D84C2AB16F3100464FDE /* TaptoolsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105D8482AB1638A00464FDE /* TaptoolsApp.swift */; };
 		E12E1DB72885B05F00E7CE73 /* NFTStickersBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E1DB62885B05F00E7CE73 /* NFTStickersBrowserViewController.swift */; };
 		E12F3BF2288662E900675B9A /* SVGView in Frameworks */ = {isa = PBXBuildFile; productRef = E12F3BF1288662E900675B9A /* SVGView */; };
 		E12F3BF3288673F100675B9A /* PoolPm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E505DB287F7FCC00796263 /* PoolPm.swift */; };
@@ -109,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E105D8482AB1638A00464FDE /* TaptoolsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaptoolsApp.swift; sourceTree = "<group>"; };
 		E12E1DB52885ACDB00E7CE73 /* Cardano NFT StickersRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Cardano NFT StickersRelease.entitlements"; sourceTree = "<group>"; };
 		E12E1DB62885B05F00E7CE73 /* NFTStickersBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTStickersBrowserViewController.swift; sourceTree = "<group>"; };
 		E135460C288B9DCD00F48523 /* WildTangz-CNFT-Widget-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "WildTangz-CNFT-Widget-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -243,6 +246,7 @@
 				E1D150942885ED9C007E22D8 /* AppConstants.swift */,
 				E14C0CA4288A29B3006D6B68 /* NftInfo.swift */,
 				E1B5165F288DACDC00E87FF0 /* ApewatchApp.swift */,
+				E105D8482AB1638A00464FDE /* TaptoolsApp.swift */,
 				E1B51662288DAD0100E87FF0 /* Utils.swift */,
 				E1622485288F79DD00943CD3 /* Blockfrost.swift */,
 				E1622489288F7E9A00943CD3 /* Secrets.xcconfig */,
@@ -532,6 +536,7 @@
 				E17B338E287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */,
 				E1D150952885ED9C007E22D8 /* AppConstants.swift in Sources */,
 				E17B3350287DE34C00FF14C2 /* ContentView.swift in Sources */,
+				E105D8492AB1638A00464FDE /* TaptoolsApp.swift in Sources */,
 				E19D0081287F44B70067CB8F /* ColorExtension.swift in Sources */,
 				E17B334E287DE34C00FF14C2 /* WildTangz_CNFT_WidgetApp.swift in Sources */,
 				E1B51663288DAD0100E87FF0 /* Utils.swift in Sources */,
@@ -562,6 +567,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E105D84C2AB16F3100464FDE /* TaptoolsApp.swift in Sources */,
 				E19D0082287F44FB0067CB8F /* ColorExtension.swift in Sources */,
 				E1B5165B288DA3D700E87FF0 /* ApewatchProvider.swift in Sources */,
 				E17B338D287DE57700FF14C2 /* iOS_Widget.intentdefinition in Sources */,
@@ -787,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wildtangz.cardanonfts;
 				PRODUCT_NAME = "Cardano NFTs";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -824,7 +830,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wildtangz.cardanonfts;
 				PRODUCT_NAME = "Cardano NFTs";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -941,7 +947,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.iOS-WidgetExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -971,7 +977,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.iOS-WidgetExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -999,7 +1005,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.Cardano-NFT-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1028,7 +1034,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wildtangz.cardanonfts.Cardano-NFT-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

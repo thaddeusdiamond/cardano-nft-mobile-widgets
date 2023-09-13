@@ -46,7 +46,7 @@ struct ApewatchProvider: IntentTimelineProvider {
         let addressAuthorized = AppAuthorization.isAuthorizedForPortfolio(addressOrAsset: address)
         var portfolioInfo : PortfolioInfo? = nil
         if addressAuthorized {
-            portfolioInfo = ApewatchApp.getPortfolioValue(address: address)
+            portfolioInfo = TaptoolsApp.getPortfolioValue(address: address)
         }
         
         let entries: [ApewatchEntry] = [
@@ -175,7 +175,7 @@ struct ApewatchWidgetView : View {
     }
     
     private static func getFloorEstimateCaption() -> some View {
-        return Text("Powered by ApeWatch")
+        return Text("Powered by Taptools")
                 .font(.caption2)
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .trailing)

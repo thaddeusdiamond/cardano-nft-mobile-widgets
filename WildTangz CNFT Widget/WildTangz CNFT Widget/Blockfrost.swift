@@ -49,7 +49,7 @@ class Blockfrost {
         return callBlockfrostPaginatedApi("accounts/\(accountAddress)/addresses/assets")
     }
 
-    private static func lookupHandleAddr(handle: String) -> String {
+    static func lookupHandleAddr(handle: String) -> String {
         let rawHandle = handle[handle.index(handle.startIndex, offsetBy: Blockfrost.HANDLE_IDENTIFIER.count)...]
         let assetName = Data(rawHandle.lowercased().utf8).map { String(format:"%02x", $0) }.joined()
         let addressesForHandle = callBlockfrostApi("assets/\(Blockfrost.HANDLE_POLICY_ID)\(assetName)/addresses")

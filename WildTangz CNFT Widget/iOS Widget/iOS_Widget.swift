@@ -38,7 +38,7 @@ struct iOS_Widget: WidgetBundle {
                ApewatchWidgetView(entry: entry)
             }
             .configurationDisplayName("Cardano NFT Portfolio")
-            .description("Display portfolio value data (Powered by ApeWatch)")
+            .description("Display portfolio value data (Powered by TapTools)")
             .supportedFamilies([.systemSmall, .systemMedium])
         }
     }
