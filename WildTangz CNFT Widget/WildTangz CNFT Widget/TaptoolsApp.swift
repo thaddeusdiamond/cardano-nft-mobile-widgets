@@ -25,6 +25,7 @@ struct TaptoolsApp {
     
     static let NUM_NFTS_KEY = "numNFTs"
     static let ADA_VALUE_KEY = "adaValue"
+    static let POSITIONS_NFTS_KEY = "positionsNft"
     
     static func getPortfolioValue(address: String) -> PortfolioInfo? {
         do {
@@ -46,8 +47,11 @@ struct TaptoolsApp {
             )
             os_log("%s", log: LOGGER, type: .debug, conversionInfo.stringValue)
 
-            let numAssets = portfolioInfo[NUM_NFTS_KEY].intValue
-            let numProjects = 999                                                                   // TODO: Fix with policy iteration
+            let numProjects = portfolioInfo[NUM_NFTS_KEY].intValue
+            var numAssets = 0;
+            for nftPosition : JSON in portfolioInfo[POSITIONS_NFTS_KEY].arrayValue {
+                numAssets += nftPosition["balance"].intValue
+            }
             
             let adaConversionRate : Double
             let fiatCurrencyStr : String
