@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.wildtangz.cardano.nft"
-    android:versionCode="190"
-    android:versionName="1.9">
+    android:versionCode="1100"
+    android:versionName="1.10">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WildTangzCardanoNFT"
-        tools:targetApi="32">
+        tools:targetApi="33">
 
         <activity
             android:name=".MainActivity"
@@ -32,7 +32,7 @@
         </activity>
 
         <receiver
-            android:name=".ApewatchWidget"
+            android:name=".TapToolsWidget"
             android:exported="false"
             android:label="@string/portfolio_widget_name">
             <intent-filter>
@@ -41,7 +41,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/apewatch_widget_info" />
+                android:resource="@xml/taptools_widget_info" />
         </receiver>
 
         <receiver

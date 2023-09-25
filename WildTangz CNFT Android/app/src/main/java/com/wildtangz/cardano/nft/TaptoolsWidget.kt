@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.RemoteViews
+import org.json.JSONException
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -16,11 +17,10 @@ import java.nio.charset.StandardCharsets
 import java.text.DateFormat
 import java.util.*
 
-
 /**
  * Implementation of App Widget functionality.
  */
-class ApewatchWidget : AppWidgetProvider() {
+class TapToolsWidget : AppWidgetProvider() {
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
@@ -30,7 +30,7 @@ class ApewatchWidget : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             val sharedPrefs = context.getSharedPreferences(context.getString(R.string.shared_config), Context.MODE_PRIVATE)
             val addressOrAsset = sharedPrefs.getString(context.getString(R.string.selection_key), "")
-            UpdateApewatchWidgetTask(context, appWidgetManager, appWidgetId).execute(addressOrAsset)
+            UpdateTapToolsWidgetTask(context, appWidgetManager, appWidgetId).execute(addressOrAsset)
         }
     }
 
@@ -55,17 +55,7 @@ class ApewatchWidget : AppWidgetProvider() {
     }
 }
 
-class PortfolioInfo(
-    val wallet: String,
-    val numAssets: Int,
-    val numProjects: Int,
-    val adaValueEstimate: Double,
-    val fiatEstimate: Double,
-    val fiatCurrencyStr: String,
-    val isAuthorized: Boolean) {
-}
-
-private class UpdateApewatchWidgetTask(
+private class UpdateTapToolsWidgetTask(
     var context: Context,
     var appWidgetManager: AppWidgetManager,
     var appWidgetId: Int
@@ -75,24 +65,27 @@ private class UpdateApewatchWidgetTask(
     private val USD_KEY = "USD"
     private val USD_SYMBOL = "$"
 
-    private val APEWATCH_SITE = "https://apewatch.app"
-    private val APEWATCH_API = "https://apewatch.app/api/v1/account"
+    private val COINMARKETCAP_API = "https://pro-api.coinmarketcap.com"
 
-    private val ASSETS_KEY = "assets"
-    private val COUNTS_KEY = "counts"
-    private val DEFAULT_KEY = "default"
-    private val POLICIES_KEY = "policies"
-    private val TOTAL_KEY = "total"
-    private val VALUES_KEY = "values"
+    private val TAPTOOLS_SITE = "https://taptools.io"
+    private val TAPTOOLS_API = "https://openapi.taptools.io/api/v1"
+
+    private val POSITIONS_NFTS_KEY = "positionsNft"
+    private val NUM_NFTS_KEY = "numNFTs"
+    private val ADA_VALUE_KEY = "adaValue"
 
     private val MIN_WIDTH_FOR_ASSETS = 250
 
     var blockfrost : Blockfrost
     var walletAuth : WalletAuth
+    var tapToolsKey : String
+    var coinMarketKey : String
 
     init {
         blockfrost = Blockfrost(context)
         walletAuth = WalletAuth(blockfrost)
+        tapToolsKey = context.getString(R.string.taptools_api_key)
+        coinMarketKey = context.getString(R.string.coinmarket_api_key)
     }
 
     override fun doInBackground(vararg params: String?): PortfolioInfo {
@@ -109,26 +102,38 @@ private class UpdateApewatchWidgetTask(
             )
         }
 
-        with(URL("${APEWATCH_API}/${wallet}").openConnection() as HttpURLConnection) {
+        val address = if (wallet.startsWith(Blockfrost.HANDLE_PREFIX)) blockfrost.lookupHandle(wallet) else wallet;
+
+        with(URL("${TAPTOOLS_API}/wallet/portfolio/positions?address=${address}").openConnection() as HttpURLConnection) {
+            setRequestProperty("x-api-key", tapToolsKey)
+
             val portfolioInfo = JSONObject(String(inputStream.readBytes(), StandardCharsets.UTF_8))
-            val nfts = portfolioInfo.getJSONObject(VALUES_KEY).getJSONObject(TOTAL_KEY).getJSONObject(DEFAULT_KEY)
-
-            val nftValuations = nfts.getJSONObject(VALUES_KEY)
-            val adaValueEstimate = nftValuations.getDouble(ADA_KEY)
+            val adaValueEstimate = portfolioInfo.getDouble(ADA_VALUE_KEY)
             val localCurrency = Currency.getInstance(Locale.getDefault())
-            val fiatEstimate : Double
-            val fiatCurrencyStr : String
-            if (nftValuations.has(localCurrency.currencyCode)) {
-                fiatEstimate = nftValuations.getDouble(localCurrency.currencyCode)
-                fiatCurrencyStr = localCurrency.symbol
-            } else {
-                fiatEstimate = nftValuations.getDouble(USD_KEY)
-                fiatCurrencyStr = USD_SYMBOL
-            }
 
-            val counts = portfolioInfo.getJSONObject(COUNTS_KEY)
-            val numProjects = counts.getInt(POLICIES_KEY)
-            val numAssets = counts.getJSONObject(ASSETS_KEY).getInt(TOTAL_KEY)
+            var fiatCurrencyStr = USD_SYMBOL
+            var adaConversionRate : Double
+            with(URL("${COINMARKETCAP_API}/v2/cryptocurrency/quotes/latest?symbol=${ADA_KEY}&convert=${localCurrency.currencyCode}").openConnection() as HttpURLConnection) {
+                setRequestProperty("X-CMC_PRO_API_KEY", coinMarketKey)
+
+                val coinMarketData = JSONObject(String(inputStream.readBytes(), StandardCharsets.UTF_8))
+                val quotes = coinMarketData.getJSONObject("data").getJSONArray(ADA_KEY).getJSONObject(0).getJSONObject("quote")
+                try {
+                    adaConversionRate = quotes.getJSONObject(localCurrency.currencyCode).getDouble("price")
+                    fiatCurrencyStr = localCurrency.symbol
+                } catch (e : JSONException) {
+                    // Could not find currency code, default to USD
+                    adaConversionRate = quotes.getJSONObject(USD_KEY).getDouble("price")
+                }
+            }
+            val fiatEstimate = adaValueEstimate * adaConversionRate
+
+            val numProjects = portfolioInfo.getInt(NUM_NFTS_KEY)
+            val nftPositions = portfolioInfo.getJSONArray(POSITIONS_NFTS_KEY)
+            var numAssets = 0
+            for (idx in 0 until nftPositions.length()) {
+                numAssets += nftPositions.getJSONObject(idx).getInt("balance")
+            }
 
             return PortfolioInfo(
                 wallet = wallet,
@@ -148,7 +153,7 @@ private class UpdateApewatchWidgetTask(
         }
 
         // Construct the RemoteViews object
-        val views = RemoteViews(context.packageName, R.layout.apewatch_widget_wide)
+        val views = RemoteViews(context.packageName, R.layout.taptools_widget_wide)
         with(views) {
             setTextViewText(R.id.portfolioSelection, portfolioInfo.wallet)
             setTextViewText(R.id.portfolioUpdate,"As of ${DateFormat.getTimeInstance(DateFormat.SHORT).format(Date())}")
@@ -175,8 +180,8 @@ private class UpdateApewatchWidgetTask(
             }
         }
 
-        val apewatchUri = Uri.parse("${APEWATCH_SITE}/${portfolioInfo.wallet}")
-        val launchUrl = Intent(Intent.ACTION_VIEW, apewatchUri)
+        val taptoolsUri = Uri.parse("${TAPTOOLS_SITE}/${portfolioInfo.wallet}")
+        val launchUrl = Intent(Intent.ACTION_VIEW, taptoolsUri)
         val pendingIntent = PendingIntent.getActivity(context, appWidgetId, launchUrl, PendingIntent.FLAG_IMMUTABLE)
         views.setOnClickPendingIntent(R.id.portfolioWidget, pendingIntent)
 

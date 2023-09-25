@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/taptools_widget_description"
+    android:initialKeyguardLayout="@layout/taptools_widget_wide"
+    android:initialLayout="@layout/taptools_widget_wide"
+    android:minWidth="150dp"
+    android:minHeight="50dp"
+    android:previewImage="@mipmap/example_appwidget_preview_foreground"
+    android:previewLayout="@layout/taptools_widget_wide"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="4"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="7200000"
+    android:widgetCategory="home_screen" />

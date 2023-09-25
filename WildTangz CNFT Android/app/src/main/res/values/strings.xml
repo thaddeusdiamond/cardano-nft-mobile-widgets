@@ -11,6 +11,7 @@
 
     <string name="portfolio_widget_name">NFT Portfolio</string>
     <string name="portfolio_widget_description">View Portfolio Value on Home Screen (credit: ApeWatch)</string>
+    <string name="taptools_widget_description">View Portfolio Value on Home Screen (Powered by TapTools)</string>
     <string name="portfolio_default_assets">77 Assets</string>
     <string name="portfolio_default_wallet">$electionHandle</string>
     <string name="portfolio_default_ada">₳4,567.89</string>
@@ -18,4 +19,5 @@
     <string name="portfolio_default_projects">55 Projects</string>
     <string name="portfolio_default_update">As of 1:23 PM</string>
     <string name="powered_by_apewatch">Source: ApeWatch</string>
+    <string name="powered_by_taptools">Powered by TapTools</string>
 </resources>

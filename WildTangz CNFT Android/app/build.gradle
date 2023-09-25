@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.wildtangz.cardano.nft"
         minSdk 28
-        targetSdk 32
-        versionCode 190
-        versionName "1.9"
+        targetSdk 33
+        versionCode 1100
+        versionName "1.10"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

@@ -15,11 +15,11 @@ class Blockfrost(context: Context) {
 
         const val QUANTITY_KEY : String = "quantity"
         const val TOKEN_KEY : String = "unit"
+        const val HANDLE_PREFIX : String = "$"
 
         private const val STAKE_ADDRESS_KEY : String = "stake_address"
         private const val STAKE_PREFIX : String = "stake1"
 
-        private const val HANDLE_PREFIX : String = "$"
         private const val HANDLE_POLICY_ID : String = "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a"
 
         private const val PAGE_MAX : Int = 100
@@ -84,8 +84,8 @@ class Blockfrost(context: Context) {
         }
     }
 
-    private fun lookupHandle(handle: String) : String {
-        val handleToken = getTokenNameFor(HANDLE_POLICY_ID, handle.substring(HANDLE_PREFIX.length))
+    fun lookupHandle(handle: String) : String {
+        val handleToken = getTokenNameFor(HANDLE_POLICY_ID, handle.lowercase().substring(HANDLE_PREFIX.length))
         val addressesForHandle = callBlockfrostCardanoApi("assets/${handleToken}/addresses")
         return JSONArray(addressesForHandle).getJSONObject(0).getString("address")
     }

@@ -30,7 +30,7 @@ import com.wildtangz.cardano.nft.ui.theme.WildTangzCardanoNFTTheme
 
 class MainActivity : ComponentActivity() {
 
-    private val APPLICATION_WIDGETS = listOf(NftViewerWidget::class.java, ApewatchWidget::class.java)
+    private val APPLICATION_WIDGETS = listOf(NftViewerWidget::class.java, TapToolsWidget::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
