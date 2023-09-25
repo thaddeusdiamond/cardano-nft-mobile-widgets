@@ -42,7 +42,7 @@ struct TaptoolsApp {
             
             let currencyCode = Locale.current.currencyCode!
             let conversionInfo : JSON = try getAsJson(
-                url: "\(COINMARKETCAP_API)/v2/cryptocurrency/quotes/latest?symbol=\(ADA_KEY)&convert=USD,\(currencyCode)",
+                url: "\(COINMARKETCAP_API)/v2/cryptocurrency/quotes/latest?symbol=\(ADA_KEY)&convert=\(currencyCode)",
                 headers: ["X-CMC_PRO_API_KEY": COINMARKETCAP_API_KEY]
             )
             os_log("%s", log: LOGGER, type: .debug, conversionInfo.stringValue)
